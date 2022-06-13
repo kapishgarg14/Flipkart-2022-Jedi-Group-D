@@ -1,6 +1,13 @@
 package com.flipkart.bean;
 
 public class GradeCard {
+	public GradeCard(int studentId, int courseID, String courseName, String grade) {
+		this.studentId = studentId;
+		this.courseID = courseID;
+		this.courseName = courseName;
+		this.grade = grade;
+	}
+
 	private int studentId;
 	private int courseID;
 	private String courseName;

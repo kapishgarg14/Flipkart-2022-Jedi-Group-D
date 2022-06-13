@@ -6,7 +6,16 @@ public class Courses {
 	
 	protected String courseName;
     private int credits;
-
+    
+    public Courses() {
+    	
+    }
+    
+    public Courses(int courseID, String courseName, int credits) {
+    	this.courseID = courseID;
+    	this.courseName = courseName;
+    	this.credits = credits;
+    }
 
     public int getCourseID() {
 		return courseID;

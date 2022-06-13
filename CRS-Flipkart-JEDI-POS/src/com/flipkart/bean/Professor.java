@@ -3,6 +3,10 @@ package com.flipkart.bean;
 import java.util.*;
 
 public class Professor extends User {
+		public Professor(String department, Vector<String> coursesAssigned) {
+		this.department = department;
+		this.coursesAssigned = coursesAssigned;
+	}
 		private String department;
 		
 		private Vector<String> coursesAssigned = new Vector<String>();
