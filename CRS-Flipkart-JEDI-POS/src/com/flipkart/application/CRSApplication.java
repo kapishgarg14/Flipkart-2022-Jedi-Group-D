@@ -17,7 +17,7 @@ public class CRSApplication {
 			System.out.println("Enter 1 for login");
 			System.out.println("Enter 2 for viewing the course Catalog");
 			System.out.println("Enter 3 for registering as a new student");
-			System.out.println("Enter 0 for login");
+			System.out.println("Enter 0 for exiting the system");
 			
 			int option  = sc.nextInt();
 			switch(option) {
