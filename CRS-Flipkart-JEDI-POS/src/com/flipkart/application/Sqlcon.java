@@ -11,11 +11,25 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-class MysqlCon {
-    MysqlCon() {
+public class Sqlcon {
+    public Sqlcon() {
+        System.out.println("dbms");
     }
 
-    public static void main(String[] args) {
+    public ResultSet queryDBMS(String query){
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/crs", "root", "sql1234");
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            con.close();
+            return rs;
+        } catch (Exception var4) {
+            System.out.println("Error in dbms please check");
+        }
+        return null;
+    };
+    public static void callSQL() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/crs", "root", "sql1234");
@@ -25,7 +39,8 @@ class MysqlCon {
             while(rs.next()) {
                 PrintStream var10000 = System.out;
                 int var10001 = rs.getInt(1);
-                var10000.println("" + var10001 + "  " + rs.getString(2) + "  " + rs.getString(3));
+                var10000.println("" + var10001 + "  " + rs.getString(2) + "  " + rs.getString(3) + " "
+                        + rs.getInt(4)+ " " + rs.getBoolean(5));
             }
 
             con.close();

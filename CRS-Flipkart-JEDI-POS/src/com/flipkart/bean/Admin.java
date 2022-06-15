@@ -1,6 +1,10 @@
 package com.flipkart.bean;
 
-public class Admin extends User {	
+import com.flipkart.application.Sqlcon;
+
+public class Admin extends User {
+	Sqlcon sqlcon = new Sqlcon();
+	String t = "Select * from user";
 	public Admin(int adminId, String adminName, String adminEmail) {
 		super();
 		this.adminId = adminId;
