@@ -1,0 +1,19 @@
+Index: CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/Professor.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.flipkart.bean;\n\npublic class Professor extends User {\n    private String professorId;\n    private String areaOfExpertise;\n    private int yearsOfExperience;\n\n    public Professor() {\n        this.professorId = professorId;\n        this.areaOfExpertise = areaOfExpertise;\n        this.yearsOfExperience = yearsOfExperience;\n    }\n\n    /**\n     * @param userId\n     * @param userName\n     * @param emailId\n     * @param password\n     * @param contactNo\n     * @param professorId\n     * @param areaOfExpertise\n     * @param yearsOfExperience\n     */\n    public Professor(String userId, String userName, String emailId, String password, String contactNo, String professorId, String areaOfExpertise, int yearsOfExperience) {\n        super(userId, userName, emailId, password, contactNo);\n        this.professorId = professorId;\n        this.areaOfExpertise = areaOfExpertise;\n        this.yearsOfExperience = yearsOfExperience;\n    }\n\n    public String getProfessorId() {\n        return professorId;\n    }\n\n    public void setProfessorId(String professorId) {\n        this.professorId = professorId;\n    }\n\n    public String getAreaOfExpertise() {\n        return areaOfExpertise;\n    }\n\n    public void setAreaOfExpertise(String areaOfExpertise) {\n        this.areaOfExpertise = areaOfExpertise;\n    }\n\n    public int getYearsOfExperience() {\n        return yearsOfExperience;\n    }\n\n    public void setYearsOfExperience(int yearsOfExperience) {\n        this.yearsOfExperience = yearsOfExperience;\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/Professor.java b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/Professor.java
+--- a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/Professor.java	(revision f14f0a959b518f5763d530ef98585d6e0c83fbd5)
++++ b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/Professor.java	(date 1655389515846)
+@@ -4,6 +4,8 @@
+     private String professorId;
+     private String areaOfExpertise;
+     private int yearsOfExperience;
++    private String department;
++    private Vector<String> coursesAssigned = new Vector();
+ 
+     public Professor() {
+         this.professorId = professorId;

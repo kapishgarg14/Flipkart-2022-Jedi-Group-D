@@ -1,0 +1,225 @@
+Index: CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/CourseNotAvailableException.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>/**\n *\n */\npackage com.flipkart.exception;\n\n/**\n * @author kapish_garg\n *\n */\n@SuppressWarnings(\"serial\")\npublic class CourseNotAvailableException extends Exception {\n\n    private int courseId;\n\n    /**\n     * @param courseId\n     */\n    public CourseNotAvailableException(int courseId) {\n        this.courseId = courseId;\n    }\n\n    /**\n     * Getter Method\n     * @return the courseId\n     */\n    public int getCourseId() {\n        return courseId;\n    }\n\n    /**\n     * Message thrown by exception\n     */\n    @Override\n    public String getMessage() {\n        return \"Course with Course Id: \" + courseId + \" is not available. Seats Full!\";\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/CourseNotAvailableException.java b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/CourseNotAvailableException.java
+--- a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/CourseNotAvailableException.java	(revision 9ec2baae05239dafbcc8ea82b9b97355f173ec31)
++++ b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/CourseNotAvailableException.java	(date 1655389974403)
+@@ -8,6 +8,9 @@
+  *
+  */
+ @SuppressWarnings("serial")
++/**
++ * Exception used if Course Not Avaialble .
++ */
+ public class CourseNotAvailableException extends Exception {
+ 
+     private int courseId;
+Index: CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/CourseLimitExceededException.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>/**\n *\n */\npackage com.flipkart.exception;\n\n/**\n * @author kapish_garg\n *\n */\n@SuppressWarnings(\"serial\")\npublic class CourseLimitExceededException extends Exception {\n\n    private int noOfCourses;\n\n    /**\n     * @param noOfCourses\n     */\n    public CourseLimitExceededException(int noOfCourses) {\n        this.noOfCourses = noOfCourses;\n    }\n\n    /**\n     * Getter Method\n     * @return the noOfCourses\n     */\n    public int getNoOfCourses() {\n        return noOfCourses;\n    }\n\n    /**\n     * Message returned when Exception is thrown\n     */\n    @Override\n    public String getMessage() {\n        return \"You have already registered for \" + noOfCourses + \" courses.\";\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/CourseLimitExceededException.java b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/CourseLimitExceededException.java
+--- a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/CourseLimitExceededException.java	(revision 9ec2baae05239dafbcc8ea82b9b97355f173ec31)
++++ b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/CourseLimitExceededException.java	(date 1655389974491)
+@@ -8,6 +8,9 @@
+  *
+  */
+ @SuppressWarnings("serial")
++/**
++ * Exception if Course Limit Exceeded
++ */
+ public class CourseLimitExceededException extends Exception {
+ 
+     private int noOfCourses;
+Index: CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/OldPasswordNotValidException.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.flipkart.exception;\n\nimport java.sql.SQLException;\n\n@SuppressWarnings(\"serial\")\npublic class OldPasswordNotValidException extends SQLException {\n    private String userId;\n\n    /**\n     * @param userId\n     */\n    public OldPasswordNotValidException(String userId) {\n        this.userId = userId;\n    }\n\n    public OldPasswordNotValidException() {\n        // TODO Auto-generated constructor stub\n    }\n\n    /**\n     * Getter Method\n     *\n     * @return the userId\n     */\n    public String getUserId() {\n        return userId;\n    }\n\n    /**\n     * Message returned when exception is thrown\n     */\n    @Override\n    public String getMessage() {\n        return \"Old Password is not valid Or User Id is incorrect\";\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/OldPasswordNotValidException.java b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/OldPasswordNotValidException.java
+--- a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/OldPasswordNotValidException.java	(revision f14f0a959b518f5763d530ef98585d6e0c83fbd5)
++++ b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/OldPasswordNotValidException.java	(date 1655389974509)
+@@ -3,6 +3,9 @@
+ import java.sql.SQLException;
+ 
+ @SuppressWarnings("serial")
++/**
++ * Exception if old password not valid.
++ */
+ public class OldPasswordNotValidException extends SQLException {
+     private String userId;
+ 
+Index: CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/UserNotAddedException.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>/**\n *\n */\npackage com.flipkart.exception;\n\n/**\n * @author kapish_garg\n *\n */\n@SuppressWarnings(\"serial\")\npublic class UserNotAddedException extends Exception {\n\n    private int userId;\n\n    /**\n     * @param userId\n     */\n    public UserNotAddedException(int userId) {\n        this.userId = userId;\n    }\n\n    /**\n     * Getter Method\n     * @return the userId\n     */\n    public int getUserId() {\n        return userId;\n    }\n\n    /**\n     * Message returned when Exception is thrown\n     */\n    @Override\n    public String getMessage() {\n        return \"User with User Id: \" + userId + \" not added.\";\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/UserNotAddedException.java b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/UserNotAddedException.java
+--- a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/UserNotAddedException.java	(revision 9ec2baae05239dafbcc8ea82b9b97355f173ec31)
++++ b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/UserNotAddedException.java	(date 1655387117209)
+@@ -8,6 +8,9 @@
+  *
+  */
+ @SuppressWarnings("serial")
++/**
++ * Exception if User Not added .
++ */
+ public class UserNotAddedException extends Exception {
+ 
+     private int userId;
+Index: CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/UserNotFoundException.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>/**\n *\n */\npackage com.flipkart.exception;\n\n/**\n * @author kapish_garg\n *\n */\n@SuppressWarnings(\"serial\")\npublic class UserNotFoundException extends Exception {\n\n    private String userId;\n\n    /**\n     * @param userId\n     */\n    public UserNotFoundException(String userId) {\n        this.userId = userId;\n    }\n\n    /**\n     * Getter Method\n     * @return the userEmailId\n     */\n    public String getUserId() {\n        return userId;\n    }\n\n    /**\n     * Message returned when Exception is thrown\n     */\n    @Override\n    public String getMessage() {\n        return \"User with User Id: \" + userId + \" not found.\";\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/UserNotFoundException.java b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/UserNotFoundException.java
+--- a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/UserNotFoundException.java	(revision 9ec2baae05239dafbcc8ea82b9b97355f173ec31)
++++ b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/UserNotFoundException.java	(date 1655387117227)
+@@ -8,6 +8,9 @@
+  *
+  */
+ @SuppressWarnings("serial")
++/**
++ * Exeception if user not found .
++ */
+ public class UserNotFoundException extends Exception {
+ 
+     private String userId;
+Index: CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/CourseAlreadyRegisteredException.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>/**\n *\n */\npackage com.flipkart.exception;\n\n/**\n * @author kapish_garg\n *\n */\n@SuppressWarnings(\"serial\")\npublic class CourseAlreadyRegisteredException extends Exception {\n\n//\tprivate int courseId;\n\n    /**\n     * @param\n     */\n    public CourseAlreadyRegisteredException() {\n\n    }\n\n    /**\n     * Getter Method\n     * @return the courseId\n     */\n//\tpublic int getCourseId() {\n//\t\treturn courseId;\n//\t}\n\n    /**\n     * Message thrown by exception\n     */\n    @Override\n    public String getMessage() {\n        return \"You have already registered for the course with entered course\";\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/CourseAlreadyRegisteredException.java b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/CourseAlreadyRegisteredException.java
+--- a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/CourseAlreadyRegisteredException.java	(revision 9ec2baae05239dafbcc8ea82b9b97355f173ec31)
++++ b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/CourseAlreadyRegisteredException.java	(date 1655389641333)
+@@ -8,6 +8,9 @@
+  *
+  */
+ @SuppressWarnings("serial")
++/**
++ * Exception if the Course Already Registered .
++ */
+ public class CourseAlreadyRegisteredException extends Exception {
+ 
+ //	private int courseId;
+Index: CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/ConfirmPasswordException.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>/**\n *\n */\npackage com.flipkart.exception;\n\n/**\n * @author kapish_garg\n *\n */\n@SuppressWarnings(\"serial\")\npublic class ConfirmPasswordException extends Exception {\n    private int userId;\n\n    /**\n     * @param userId\n     */\n    public ConfirmPasswordException(int userId) {\n        this.userId = userId;\n    }\n\n    public ConfirmPasswordException() {\n        // TODO Auto-generated constructor stub\n    }\n\n    /**\n     * Getter Method\n     * @return the userId\n     */\n    public int getUserId() {\n        return userId;\n    }\n\n    /**\n     * Message returned when exception is thrown\n     */\n    @Override\n    public String getMessage() {\n        return \"Confirm Password and New Password are not similar\";\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/ConfirmPasswordException.java b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/ConfirmPasswordException.java
+--- a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/ConfirmPasswordException.java	(revision 9ec2baae05239dafbcc8ea82b9b97355f173ec31)
++++ b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/ConfirmPasswordException.java	(date 1655389641338)
+@@ -8,6 +8,9 @@
+  *
+  */
+ @SuppressWarnings("serial")
++/**
++ * Exception for confirming the password
++ */
+ public class ConfirmPasswordException extends Exception {
+     private int userId;
+ 
+Index: CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/CourseAlreadyExistsException.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>/**\n *\n */\npackage com.flipkart.exception;\n\n/**\n * @author kapish_garg\n *\n */\n@SuppressWarnings(\"serial\")\npublic class CourseAlreadyExistsException extends Exception {\n\n    private int courseId;\n\n    /**\n     * @param courseId\n     */\n    public CourseAlreadyExistsException(int courseId) {\n        this.courseId = courseId;\n    }\n\n    /**\n     * Getter Method\n     * @return the courseId\n     */\n    public int getCourseId() {\n        return courseId;\n    }\n\n    /**\n     * Message returned when exception is thrown\n     */\n    @Override\n    public String getMessage() {\n        return \"Course: \" + courseId + \" already exists in catalog.\";\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/CourseAlreadyExistsException.java b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/CourseAlreadyExistsException.java
+--- a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/CourseAlreadyExistsException.java	(revision 9ec2baae05239dafbcc8ea82b9b97355f173ec31)
++++ b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/CourseAlreadyExistsException.java	(date 1655389641345)
+@@ -8,6 +8,9 @@
+  *
+  */
+ @SuppressWarnings("serial")
++/**
++ * Exception if Course Already Exists.
++ */
+ public class CourseAlreadyExistsException extends Exception {
+ 
+     private int courseId;
+Index: CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/ProfessorAlreadyRegisteredException.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>/**\n *\n */\npackage com.flipkart.exception;\n\n/**\n * @author kapish_garg\n *\n */\n@SuppressWarnings(\"serial\")\npublic class ProfessorAlreadyRegisteredException extends Exception {\n\n    private int professorId;\n\n    /**\n     * @param professorId\n     */\n    public ProfessorAlreadyRegisteredException(int professorId) {\n        this.professorId = professorId;\n    }\n\n    /**\n     * Getter Method\n     * @return the professorId\n     */\n    public int getProfessorId() {\n        return professorId;\n    }\n\n    /**\n     * Message returned when Exception is thrown\n     */\n    @Override\n    public String getMessage() {\n        return \"Professer with Professor Id: \" + professorId + \" has already registered.\";\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/ProfessorAlreadyRegisteredException.java b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/ProfessorAlreadyRegisteredException.java
+--- a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/ProfessorAlreadyRegisteredException.java	(revision 9ec2baae05239dafbcc8ea82b9b97355f173ec31)
++++ b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/ProfessorAlreadyRegisteredException.java	(date 1655390165078)
+@@ -8,6 +8,9 @@
+  *
+  */
+ @SuppressWarnings("serial")
++/**
++ * Exception if professor already registered
++ */
+ public class ProfessorAlreadyRegisteredException extends Exception {
+ 
+     private int professorId;
+Index: CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/GradeCardNotAlottedException.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>/**\n *\n */\npackage com.flipkart.exception;\n\n/**\n * @author kapish_garg\n *\n */\n@SuppressWarnings(\"serial\")\npublic class GradeCardNotAlottedException extends Exception {\n\n    private int studentId;\n\n    /**\n     * @param studentId\n     */\n    public GradeCardNotAlottedException(int studentId) {\n        this.studentId = studentId;\n    }\n\n    /**\n     * Getter Method\n     * @return the studentId\n     */\n    public int getStudentId() {\n        return studentId;\n    }\n\n    /**\n     * Message returned when Exception is thrown\n     */\n    @Override\n    public String getMessage() {\n        return \"Student with Student Id: \" + studentId + \" is not alloted a Grade Card yet.\";\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/GradeCardNotAlottedException.java b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/GradeCardNotAlottedException.java
+--- a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/GradeCardNotAlottedException.java	(revision 9ec2baae05239dafbcc8ea82b9b97355f173ec31)
++++ b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/GradeCardNotAlottedException.java	(date 1655389974455)
+@@ -7,7 +7,14 @@
+  * @author kapish_garg
+  *
+  */
++
++/**
++ *
++ */
+ @SuppressWarnings("serial")
++/**
++ * Exeption if Grade card not alloted .
++ */
+ public class GradeCardNotAlottedException extends Exception {
+ 
+     private int studentId;
+Index: CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/CourseNotDeletedException.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>/**\n *\n */\npackage com.flipkart.exception;\n\n/**\n *\n *\n */\n@SuppressWarnings(\"serial\")\npublic class CourseNotDeletedException extends Exception {\n\n    private int courseId;\n\n    /**\n     * @param courseId\n     */\n    public CourseNotDeletedException(int courseId) {\n        this.courseId = courseId;\n    }\n\n    /**\n     * Getter Method\n     * @return the courseId\n     */\n    public int getCourseId() {\n        return courseId;\n    }\n\n    /**\n     * Message thrown by exception\n     */\n    @Override\n    public String getMessage() {\n        return \"Course with Course Id: \" + courseId + \" can't be deleted.\";\n    }\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/CourseNotDeletedException.java b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/CourseNotDeletedException.java
+--- a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/CourseNotDeletedException.java	(revision f14f0a959b518f5763d530ef98585d6e0c83fbd5)
++++ b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/exception/CourseNotDeletedException.java	(date 1655389974396)
+@@ -8,6 +8,9 @@
+  *
+  */
+ @SuppressWarnings("serial")
++/**
++ * Exception if Course Not Deleted .
++ */
+ public class CourseNotDeletedException extends Exception {
+ 
+     private int courseId;

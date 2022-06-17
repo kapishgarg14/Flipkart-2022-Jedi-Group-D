@@ -1,0 +1,734 @@
+Index: CRS-Jedi-D-Flipkart-POS/src/com/flipkart/application/CrsApplication.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.flipkart.application;\n\nimport com.flipkart.dao.StudentDaoImplementation;\nimport com.flipkart.exception.CourseAlreadyRegisteredException;\nimport com.flipkart.exception.UserNotFoundException;\nimport com.flipkart.service.UpdatePassword;\n\nimport java.io.BufferedReader;\nimport java.io.IOException;\nimport java.io.InputStreamReader;\nimport java.sql.SQLException;\n\npublic class CrsApplication {\n    public static void main(String[] args) throws IOException, SQLException, UserNotFoundException, CourseAlreadyRegisteredException {\n//        final Logger logger = Logger.getLogger(CrsApplication.class);\n        while (true) {\n            System.out.println(\"\");\n            System.out.println(\"#############################################################\");\n            System.out.println(\"----------WELCOME TO COURSE REGISTRATION SYSTEM ----------\");\n            System.out.println(\"#############################################################\");\n            System.out.println(\"\");\n            System.out.println(\"Main Menu \\n1. Register as a new student\\n2. Login\\n3.Exit\");\n            System.out.println(\"#############################################################\");\n            System.out.println(\"Enter your choice:\");\n            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));\n            int choice = Integer.parseInt(br.readLine());\n            switch (choice) {\n                case 1:\n                    StudentDaoImplementation studentDaoImplementation = new StudentDaoImplementation();\n                    studentDaoImplementation.addStudent();\n                    break;\n                case 2:\n                    CrsLoginMenu login = new CrsLoginMenu();\n                    login.crsLoginMenu();\n                    break;\n                case 3:\n                    UpdatePassword updatePassword = new UpdatePassword();\n                    updatePassword.updatePassword();\n                    break;\n                case 4:\n                    System.out.println(\"Bye\");\n                    System.exit(0);\n                    break;\n                default:\n                    System.out.println(\"Invalid Choice!!!! Please enter Details Again\");\n            }\n\n        }\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/application/CrsApplication.java b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/application/CrsApplication.java
+--- a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/application/CrsApplication.java	(revision f14f0a959b518f5763d530ef98585d6e0c83fbd5)
++++ b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/application/CrsApplication.java	(date 1655385853311)
+@@ -11,6 +11,16 @@
+ import java.sql.SQLException;
+ 
+ public class CrsApplication {
++    /**
++     * A class for displaying the initial interface when the user starts
++     * the course registration system
++     * @param args
++     * @throws IOException
++     * @throws SQLException
++     * @throws UserNotFoundException
++     * @throws CourseAlreadyRegisteredException
++     */
++    
+     public static void main(String[] args) throws IOException, SQLException, UserNotFoundException, CourseAlreadyRegisteredException {
+ //        final Logger logger = Logger.getLogger(CrsApplication.class);
+         while (true) {
+Index: CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/Professor.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.flipkart.bean;\n\npublic class Professor extends User {\n    private String professorId;\n    private String areaOfExpertise;\n    private int yearsOfExperience;\n\n    public Professor() {\n        this.professorId = professorId;\n        this.areaOfExpertise = areaOfExpertise;\n        this.yearsOfExperience = yearsOfExperience;\n    }\n\n    /**\n     * @param userId\n     * @param userName\n     * @param emailId\n     * @param password\n     * @param contactNo\n     * @param professorId\n     * @param areaOfExpertise\n     * @param yearsOfExperience\n     */\n    public Professor(String userId, String userName, String emailId, String password, String contactNo, String professorId, String areaOfExpertise, int yearsOfExperience) {\n        super(userId, userName, emailId, password, contactNo);\n        this.professorId = professorId;\n        this.areaOfExpertise = areaOfExpertise;\n        this.yearsOfExperience = yearsOfExperience;\n    }\n\n    public String getProfessorId() {\n        return professorId;\n    }\n\n    public void setProfessorId(String professorId) {\n        this.professorId = professorId;\n    }\n\n    public String getAreaOfExpertise() {\n        return areaOfExpertise;\n    }\n\n    public void setAreaOfExpertise(String areaOfExpertise) {\n        this.areaOfExpertise = areaOfExpertise;\n    }\n\n    public int getYearsOfExperience() {\n        return yearsOfExperience;\n    }\n\n    public void setYearsOfExperience(int yearsOfExperience) {\n        this.yearsOfExperience = yearsOfExperience;\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/Professor.java b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/Professor.java
+--- a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/Professor.java	(revision f14f0a959b518f5763d530ef98585d6e0c83fbd5)
++++ b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/Professor.java	(date 1655389515846)
+@@ -1,5 +1,7 @@
+ package com.flipkart.bean;
+ 
++import java.util.Vector;
++
+ public class Professor extends User {
+     private String professorId;
+     private String areaOfExpertise;
+@@ -12,14 +14,15 @@
+     }
+ 
+     /**
+-     * @param userId
+-     * @param userName
+-     * @param emailId
+-     * @param password
+-     * @param contactNo
+-     * @param professorId
+-     * @param areaOfExpertise
+-     * @param yearsOfExperience
++     * Constructor of class Professor
++     * @param userId : user id of professor
++     * @param userName: Name of professor
++     * @param emailId: email id of professor
++     * @param password: password set by professor
++     * @param contactNo: contact number of professor
++     * @param professorId: professor id
++     * @param areaOfExpertise: area of expertise of the professor
++     * @param yearsOfExperience: experience of the professor
+      */
+     public Professor(String userId, String userName, String emailId, String password, String contactNo, String professorId, String areaOfExpertise, int yearsOfExperience) {
+         super(userId, userName, emailId, password, contactNo);
+@@ -28,10 +31,18 @@
+         this.yearsOfExperience = yearsOfExperience;
+     }
+ 
++    /**
++     * returns professor id.
++     * @return
++     */
+     public String getProfessorId() {
+         return professorId;
+     }
+ 
++    /**
++     * sets professor id.
++     * @param professorId
++     */
+     public void setProfessorId(String professorId) {
+         this.professorId = professorId;
+     }
+@@ -40,14 +51,26 @@
+         return areaOfExpertise;
+     }
+ 
++    /**
++     * sets area of expertise of the professor
++     * @param areaOfExpertise
++     */
+     public void setAreaOfExpertise(String areaOfExpertise) {
+         this.areaOfExpertise = areaOfExpertise;
+     }
+ 
++    /**
++     * returns area of expertise of the professor
++     * @return
++     */
+     public int getYearsOfExperience() {
+         return yearsOfExperience;
+     }
+ 
++    /**
++     * sets years of experience of the professor
++     * @param yearsOfExperience
++     */
+     public void setYearsOfExperience(int yearsOfExperience) {
+         this.yearsOfExperience = yearsOfExperience;
+     }
+Index: CRS-Jedi-D-Flipkart-POS/src/com/flipkart/application/AdminMenu.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.flipkart.application;\n\nimport com.flipkart.bean.Course;\nimport com.flipkart.bean.Professor;\nimport com.flipkart.service.AdminInterface;\nimport com.flipkart.service.AdminOperation;\n\nimport java.util.Scanner;\n\npublic class AdminMenu {\n    public void adminMenu() {\n\n        int choice;\n        int d = 1;\n        while (d != 0) {\n            System.out.println(\"Enter your choice : \");\n            System.out.println(\"1. Add Professor\");\n            System.out.println(\"2. Add Course\");\n            System.out.println(\"3. Drop Course\");\n            System.out.println(\"4. Approve Pending Students\");\n            System.out.println(\"5. Register For Courses\");\n            System.out.println(\"6. Exit\");\n            Scanner in = new Scanner(System.in);\n\n            choice = in.nextInt();\n            switch (choice) {\n\n                case 1:\n                    System.out.println(\"Enter Prof ID\");\n                    String profId = in.next();\n                    System.out.println(\"Name:\");\n                    String name = in.next();\n                    System.out.println(\"Professor Email id \");\n                    String email = in.next();\n                    System.out.println(\"Password: \");\n                    String password = in.next();\n                    System.out.println(\"Professor Contact number\");\n                    String contact = in.next();\n                    System.out.println(\"Area of expertise\");\n                    String areaOfExpertise = in.next();\n                    System.out.println(\"Years of experience\");\n                    int yoe = in.nextInt();\n                    Professor p = new Professor();\n                    p.setUserId(profId);\n                    p.setUserName(name);\n                    p.setEmailId(email);\n                    p.setPassword(password);\n                    p.setContactNo(contact);\n                    p.setAreaOfExpertise(areaOfExpertise);\n                    p.setYearsOfExperience(yoe);\n                    AdminInterface admin0 = AdminOperation.getInstance();\n\n                    try {\n                        admin0.addProfessor(p);\n                    } catch (Exception e) {\n                        System.out.println(e);\n                    }\n                    break;\n                case 2:\n                    System.out.println(\"Enter Course ID\");\n                    int courseId = in.nextInt();\n                    System.out.println(\"Course Name:\");\n                    String courseName = in.next();\n                    Course c = new Course();\n                    c.setCourseId(courseId);\n                    c.setCourseName(courseName);\n                    AdminInterface admin1 = AdminOperation.getInstance();\n\n                    try {\n                        admin1.addCourse(c);\n                    } catch (Exception e) {\n                        System.out.println(e);\n                    }\n                    break;\n                case 3:\n                    System.out.println(\"Enter Course ID\");\n                    int cId = in.nextInt();\n\n                    AdminInterface admin2 = AdminOperation.getInstance();\n\n                    try {\n                        admin2.dropCourse(cId);\n                    } catch (Exception e) {\n                        System.out.println(e);\n                    }\n                    break;\n                case 4:\n                    AdminInterface admin3 = AdminOperation.getInstance();\n                    try {\n                        admin3.approveStudents();\n                    } catch (Exception e) {\n                        System.out.println(e);\n                    }\n                    break;\n\n                case 5:\n                    AdminInterface admin4 = AdminOperation.getInstance();\n                    try {\n                        admin4.registerCourse();\n                    } catch (Exception e) {\n                        System.out.println(e);\n                    }\n                    break;\n\n                case 6:\n                    System.out.println(\"ok bye\");\n                    d = 0;\n                    break;\n                default:\n                    System.out.println(\"Invalid choice!\");\n            }\n        }\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/application/AdminMenu.java b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/application/AdminMenu.java
+--- a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/application/AdminMenu.java	(revision f14f0a959b518f5763d530ef98585d6e0c83fbd5)
++++ b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/application/AdminMenu.java	(date 1655384201423)
+@@ -8,12 +8,17 @@
+ import java.util.Scanner;
+ 
+ public class AdminMenu {
++    /**
++     * Class for the UI when the user is logged in as an admin
++     */
+     public void adminMenu() {
+-
++        /**
++         * Function to display the UI when the user is logged in as an admin
++         */
+         int choice;
+         int d = 1;
+         while (d != 0) {
+-            System.out.println("Enter your choice : ");
++            System.out.println("Select your choice : ");
+             System.out.println("1. Add Professor");
+             System.out.println("2. Add Course");
+             System.out.println("3. Drop Course");
+Index: CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/Admin.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.flipkart.bean;\n\npublic class Admin extends User {\n    private String adminId;\n    private String instituteName;\n\n    /**\n     * @param userId\n     * @param userName\n     * @param emailId\n     * @param password\n     * @param contactNo\n     * @param adminId\n     * @param instituteName\n     */\n    public Admin(String userId, String userName, String emailId, String password, String contactNo, String adminId, String instituteName) {\n        super(userId, userName, emailId, password, contactNo);\n        this.adminId = adminId;\n        this.instituteName = instituteName;\n    }\n\n    public String getAdminId() {\n        return adminId;\n    }\n\n    /**\n     * @param adminId\n     */\n    public void setAdminId(String adminId) {\n        this.adminId = adminId;\n    }\n\n    public String getInstituteName() {\n        return instituteName;\n    }\n\n    /**\n     * @param instituteName\n     */\n    public void setInstituteName(String instituteName) {\n        this.instituteName = instituteName;\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/Admin.java b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/Admin.java
+--- a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/Admin.java	(revision f14f0a959b518f5763d530ef98585d6e0c83fbd5)
++++ b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/Admin.java	(date 1655384619659)
+@@ -1,10 +1,15 @@
+ package com.flipkart.bean;
+ 
++/**
++ * Class for the Admin
++ * Inherits User class
++ */
+ public class Admin extends User {
+     private String adminId;
+     private String instituteName;
+ 
+     /**
++     * Constructor for the Admin class
+      * @param userId
+      * @param userName
+      * @param emailId
+@@ -19,22 +24,32 @@
+         this.instituteName = instituteName;
+     }
+ 
++    /**
++     * Method to get Admin ID
++     * @return
++     */
+     public String getAdminId() {
+         return adminId;
+     }
+ 
+     /**
++     * Method to set Admin ID
+      * @param adminId
+      */
+     public void setAdminId(String adminId) {
+         this.adminId = adminId;
+     }
+ 
++    /**
++     * Method to get Institute name
++     * @return
++     */
+     public String getInstituteName() {
+         return instituteName;
+     }
+ 
+     /**
++     * Method to set institute name
+      * @param instituteName
+      */
+     public void setInstituteName(String instituteName) {
+Index: CRS-Jedi-D-Flipkart-POS/src/com/flipkart/application/CrsLoginMenu.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.flipkart.application;\n\nimport com.flipkart.bean.Professor;\nimport com.flipkart.bean.Student;\nimport com.flipkart.dao.AdminDaoImplementation;\nimport com.flipkart.dao.GeneralLoginDaoImplementation;\nimport com.flipkart.dao.StudentDaoImplementation;\nimport com.flipkart.exception.CourseAlreadyRegisteredException;\nimport com.flipkart.exception.UserNotFoundException;\nimport com.flipkart.service.ProfessorService;\n\nimport java.io.BufferedReader;\nimport java.io.IOException;\nimport java.io.InputStreamReader;\nimport java.sql.SQLException;\n\npublic class CrsLoginMenu {\n\n    public void crsLoginMenu() throws IOException, SQLException, UserNotFoundException, CourseAlreadyRegisteredException {\n        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));\n\n\n        System.out.println(\"Enter the userId:\");\n        String userId = br.readLine();\n        System.out.println(\"Enter the password:\");\n        String password = br.readLine();\n\n        System.out.println(\"Validating credentials ........\");\n\n        GeneralLoginDaoImplementation loginImplementation = new GeneralLoginDaoImplementation();\n\n        int userType = loginImplementation.getUserType(userId);\n\n        switch (userType) {\n            case 1:\n\n                System.out.println(\"Validating Student credentials ........\");\n                StudentDaoImplementation studentDaoImplementation = new StudentDaoImplementation();\n                Student student = studentDaoImplementation.validateCredentials(userId, password);\n\n                if (student != null && student.isApproved()) {\n                    System.out.println(\"##############################\");\n                    System.out.println(\"Hello Student!!  Welcome to the Course Registration portal\");\n                    System.out.println(\"##############################\");\n                    CrsStudentMenu crsStudentMenu = new CrsStudentMenu();\n                    crsStudentMenu.studentMenu(student);\n                } else if (student == null) {\n                    throw new UserNotFoundException(userId);\n                } else {\n                    System.out.println(\"************Sorry! Can't Login*************\");\n                    System.out.println(\"***Student has not been approved yet !!***\");\n                    System.out.println(\"*******************************************\");\n                }\n                break;\n            case 2:\n                System.out.println(\"Validating Professor credentials ......\");\n                ProfessorService profServ = new ProfessorService();\n                Professor professor = profServ.validateCredentials(userId, password);\n                if (professor != null) {\n                    System.out.println(\"###############################\");\n                    System.out.println(\"Hello Professor! Welcome to the Course Registration portal\");\n                    System.out.println(\"###############################\");\n                    CrsProfessorMenu crsProfessorMenu = new CrsProfessorMenu();\n                    crsProfessorMenu.professorMenu(professor);\n                } else {\n                    System.out.println(\"Ooops! Invalid Password\");\n                    return;\n                }\n                break;\n            case 3:\n                System.out.println(\"Validating Admin credentials ..........\");\n                AdminDaoImplementation adminDaoImplementation = new AdminDaoImplementation();\n                boolean x = adminDaoImplementation.validateCredentials(userId, password);\n                if (x == true) {\n                    System.out.println(\"###############################\");\n                    System.out.println(\"Hey Admin. Welcome to the portal\");\n                    System.out.println(\"###############################\");\n                    AdminMenu adminMenu = new AdminMenu();\n                    adminMenu.adminMenu();\n                } else {\n                    System.out.println(\"Oh no!! Invalid Password. Try Again!\");\n                    return;\n                }\n                break;\n            default:\n                System.out.println(\"Ooops! Invalid User ID\");\n        }\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/application/CrsLoginMenu.java b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/application/CrsLoginMenu.java
+--- a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/application/CrsLoginMenu.java	(revision f14f0a959b518f5763d530ef98585d6e0c83fbd5)
++++ b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/application/CrsLoginMenu.java	(date 1655384201413)
+@@ -14,8 +14,18 @@
+ import java.io.InputStreamReader;
+ import java.sql.SQLException;
+ 
++/**
++ * A Class for displaying the interface if user selects login option from main menu
++ */
+ public class CrsLoginMenu {
+-
++    /**
++     * A function for displaying the interface if the user selects the login option from
++     * the main menu
++     * @throws IOException
++     * @throws SQLException
++     * @throws UserNotFoundException
++     * @throws CourseAlreadyRegisteredException
++     */
+     public void crsLoginMenu() throws IOException, SQLException, UserNotFoundException, CourseAlreadyRegisteredException {
+         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+ 
+Index: CRS-Jedi-D-Flipkart-POS/src/com/flipkart/dao/PaymentDaoInterface.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.flipkart.dao;\n\nimport java.sql.SQLException;\n\npublic interface PaymentDaoInterface {\n    void insertIntoPayment(String paymentId, String paymentType) throws SQLException;\n\n    void insertIntoBookkeeper(String paymentId, String paymentType, int semester) throws SQLException;\n\n    void updateFeeStatus(String studentId) throws SQLException;\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/dao/PaymentDaoInterface.java b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/dao/PaymentDaoInterface.java
+--- a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/dao/PaymentDaoInterface.java	(revision f14f0a959b518f5763d530ef98585d6e0c83fbd5)
++++ b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/dao/PaymentDaoInterface.java	(date 1655389974526)
+@@ -2,6 +2,9 @@
+ 
+ import java.sql.SQLException;
+ 
++/**
++ * Interface for representing the payments
++ */
+ public interface PaymentDaoInterface {
+     void insertIntoPayment(String paymentId, String paymentType) throws SQLException;
+ 
+Index: CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/GradeCard.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.flipkart.bean;\n\npublic class GradeCard {\n    private String userId;\n    private int courseId;\n    private String grade;\n\n    /**\n     * @param userId\n     * @param courseId\n     * @param grade\n     */\n    public GradeCard(String userId, int courseId, String grade) {\n        this.userId = userId;\n        this.courseId = courseId;\n        this.grade = grade;\n    }\n\n    /**\n     * @return\n     */\n    public String getUserId() {\n        return userId;\n    }\n\n    public void setUserId(String userId) {\n        this.userId = userId;\n    }\n\n    public int getCourseId() {\n        return courseId;\n    }\n\n    /**\n     * @param courseId\n     */\n    public void setCourseId(int courseId) {\n        this.courseId = courseId;\n    }\n\n    public String getGrade() {\n        return grade;\n    }\n\n    /**\n     * @param grade\n     */\n    public void setGrade(String grade) {\n        this.grade = grade;\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/GradeCard.java b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/GradeCard.java
+--- a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/GradeCard.java	(revision f14f0a959b518f5763d530ef98585d6e0c83fbd5)
++++ b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/GradeCard.java	(date 1655386574850)
+@@ -1,14 +1,17 @@
+ package com.flipkart.bean;
+ 
++/**
++ * Grade class contains user id, course id and their corresponding grades.
++ */
+ public class GradeCard {
+     private String userId;
+     private int courseId;
+     private String grade;
+ 
+     /**
+-     * @param userId
+-     * @param courseId
+-     * @param grade
++     * @param userId represnts User's id
++     * @param courseId represnts course id
++     * @param grade represents grade of the corresponding course.
+      */
+     public GradeCard(String userId, int courseId, String grade) {
+         this.userId = userId;
+@@ -23,6 +26,10 @@
+         return userId;
+     }
+ 
++    /**
++     * sets user id.
++     * @param userId
++     */
+     public void setUserId(String userId) {
+         this.userId = userId;
+     }
+Index: CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/UPIPayment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.flipkart.bean;\n\npublic class UPIPayment {\n    private String upiId;\n    private int amount;\n\n    public UPIPayment(String upiId, int amount) {\n        this.upiId = upiId;\n        this.amount = amount;\n    }\n\n    public String getUpiId() {\n        return upiId;\n    }\n\n    public void setUpiId(String upiId) {\n        this.upiId = upiId;\n    }\n\n    public int getAmount() {\n        return amount;\n    }\n\n    public void setAmount(int amount) {\n        this.amount = amount;\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/UPIPayment.java b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/UPIPayment.java
+--- a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/UPIPayment.java	(revision f14f0a959b518f5763d530ef98585d6e0c83fbd5)
++++ b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/UPIPayment.java	(date 1655390648748)
+@@ -1,9 +1,18 @@
+ package com.flipkart.bean;
+ 
++
++/**
++ * This class represents the payment system.
++ */
+ public class UPIPayment {
+     private String upiId;
+     private int amount;
+ 
++    /**
++     * Constructor
++     * @param upiId
++     * @param amount
++     */
+     public UPIPayment(String upiId, int amount) {
+         this.upiId = upiId;
+         this.amount = amount;
+Index: CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/User.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.flipkart.bean;\n\npublic class User {\n    private String userId;\n    private String userName;\n    private String emailId;\n    private String password;\n    private String contactNo;\n\n    public User() {\n    }\n\n    /**\n     * @param userId\n     * @param userName\n     * @param emailId\n     * @param password\n     * @param contactNo\n     */\n    public User(String userId, String userName, String emailId, String password, String contactNo) {\n        this.userId = userId;\n        this.userName = userName;\n        this.emailId = emailId;\n        this.password = password;\n        this.contactNo = contactNo;\n    }\n\n    public String getUserId() {\n        return userId;\n    }\n\n    public void setUserId(String userId) {\n        this.userId = userId;\n    }\n\n    public String getUserName() {\n        return userName;\n    }\n\n    public void setUserName(String userName) {\n        this.userName = userName;\n    }\n\n    public String getEmailId() {\n        return emailId;\n    }\n\n    public void setEmailId(String emailId) {\n        this.emailId = emailId;\n    }\n\n    public String getPassword() {\n        return password;\n    }\n\n    public void setPassword(String password) {\n        this.password = password;\n    }\n\n    public String getContactNo() {\n        return contactNo;\n    }\n\n    public void setContactNo(String contactNo) {\n        this.contactNo = contactNo;\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/User.java b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/User.java
+--- a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/User.java	(revision f14f0a959b518f5763d530ef98585d6e0c83fbd5)
++++ b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/User.java	(date 1655390664209)
+@@ -1,5 +1,8 @@
+ package com.flipkart.bean;
+ 
++/**
++ * Class for users of the portal.
++ */
+ public class User {
+     private String userId;
+     private String userName;
+Index: CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/CardPayment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.flipkart.bean;\n\npublic class CardPayment {\n    private String cardNumber;\n    private String expirationDate;\n    private String name;\n    private int amount;\n\n    /**\n     * @param cardNumber\n     * @param expirationDate\n     * @param name\n     * @param amount\n     */\n    public CardPayment(String cardNumber, String expirationDate, String name, int amount) {\n        this.cardNumber = cardNumber;\n        this.expirationDate = expirationDate;\n        this.name = name;\n        this.amount = amount;\n    }\n\n    public String getCardNumber() {\n        return cardNumber;\n    }\n\n    /**\n     * @param cardNumber\n     */\n    public void setCardNumber(String cardNumber) {\n        this.cardNumber = cardNumber;\n    }\n\n    /**\n     * @return\n     */\n    public String getExpirationDate() {\n        return expirationDate;\n    }\n\n    /**\n     * @param expirationDate\n     */\n    public void setExpirationDate(String expirationDate) {\n        this.expirationDate = expirationDate;\n    }\n\n    public String getName() {\n        return name;\n    }\n\n    /**\n     * @param name\n     */\n    public void setName(String name) {\n        this.name = name;\n    }\n\n    public int getAmount() {\n        return amount;\n    }\n\n    /**\n     * @param amount\n     */\n    public void setAmount(int amount) {\n        this.amount = amount;\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/CardPayment.java b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/CardPayment.java
+--- a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/CardPayment.java	(revision f14f0a959b518f5763d530ef98585d6e0c83fbd5)
++++ b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/CardPayment.java	(date 1655385853307)
+@@ -1,5 +1,8 @@
+ package com.flipkart.bean;
+ 
++/**
++ * Class for payment through credit card
++ */
+ public class CardPayment {
+     private String cardNumber;
+     private String expirationDate;
+@@ -7,6 +10,7 @@
+     private int amount;
+ 
+     /**
++     * Constructor for Card Payment class
+      * @param cardNumber
+      * @param expirationDate
+      * @param name
+@@ -19,11 +23,16 @@
+         this.amount = amount;
+     }
+ 
++    /**
++     * Method to get credit card number
++     * @return
++     */
+     public String getCardNumber() {
+         return cardNumber;
+     }
+ 
+     /**
++     * Method to set credit card number
+      * @param cardNumber
+      */
+     public void setCardNumber(String cardNumber) {
+@@ -31,6 +40,7 @@
+     }
+ 
+     /**
++     * Method to get expiration date
+      * @return
+      */
+     public String getExpirationDate() {
+@@ -38,28 +48,39 @@
+     }
+ 
+     /**
++     * Method to set expiration date
+      * @param expirationDate
+      */
+     public void setExpirationDate(String expirationDate) {
+         this.expirationDate = expirationDate;
+     }
+ 
++    /**
++     * Method to get name
++     * @return
++     */
+     public String getName() {
+         return name;
+     }
+ 
+     /**
++     * Method to set name
+      * @param name
+      */
+     public void setName(String name) {
+         this.name = name;
+     }
+ 
++    /**
++     * Method to get payment amount
++     * @return
++     */
+     public int getAmount() {
+         return amount;
+     }
+ 
+     /**
++     * Method to set payment name
+      * @param amount
+      */
+     public void setAmount(int amount) {
+Index: CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/Course.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.flipkart.bean;\n\npublic class Course {\n    private int courseId;\n    private String courseName;\n\n    public Course() {\n        this.courseId = courseId;\n        this.courseName = courseName;\n    }\n\n    /**\n     * @param courseId\n     * @param courseName\n     */\n    public Course(int courseId, String courseName) {\n        this.courseId = courseId;\n        this.courseName = courseName;\n    }\n\n    public int getCourseId() {\n        return courseId;\n    }\n\n    /**\n     * @param courseId\n     */\n    public void setCourseId(int courseId) {\n        this.courseId = courseId;\n    }\n\n    public String getCourseName() {\n        return courseName;\n    }\n\n    /**\n     * @param courseName\n     */\n    public void setCourseName(String courseName) {\n        this.courseName = courseName;\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/Course.java b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/Course.java
+--- a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/Course.java	(revision f14f0a959b518f5763d530ef98585d6e0c83fbd5)
++++ b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/Course.java	(date 1655386242562)
+@@ -1,23 +1,33 @@
+ package com.flipkart.bean;
+ 
++/**
++ * Class for respresenting a Course
++ */
+ public class Course {
+     private int courseId;
+     private String courseName;
+ 
++    /**
++     * Course Constructor
++     */
+     public Course() {
+         this.courseId = courseId;
+         this.courseName = courseName;
+     }
+ 
+     /**
+-     * @param courseId
+-     * @param courseName
++     * @param courseId is the id assigned to courses
++     * @param courseName is Course names.
+      */
+     public Course(int courseId, String courseName) {
+         this.courseId = courseId;
+         this.courseName = courseName;
+     }
+ 
++    /**
++     * returns corresponding course ids.
++     * @return
++     */
+     public int getCourseId() {
+         return courseId;
+     }
+@@ -25,10 +35,16 @@
+     /**
+      * @param courseId
+      */
++
+     public void setCourseId(int courseId) {
+         this.courseId = courseId;
+     }
+ 
++    /**
++     * sets course id for a course.
++     * @return
++     */
++
+     public String getCourseName() {
+         return courseName;
+     }
+@@ -39,4 +55,8 @@
+     public void setCourseName(String courseName) {
+         this.courseName = courseName;
+     }
++    /**
++     * sets Course name
++     */
++
+ }
+Index: CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/Student.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.flipkart.bean;\n\npublic class Student extends User {\n\n    private String userId;\n    private int semester;\n    private String grade;\n    private String feeStatus;\n    private boolean isApproved;\n\n    /**\n     * @param userId\n     * @param userName\n     * @param emailId\n     * @param password\n     * @param contactNo\n     * @param userId1\n     * @param semester\n     * @param grade\n     * @param feeStatus\n     * @param isApproved\n     */\n    public Student(String userId, String userName, String emailId, String password, String contactNo, String userId1, int semester, String grade, String feeStatus, boolean isApproved) {\n        super(userId, userName, emailId, password, contactNo);\n        this.userId = userId1;\n        this.semester = semester;\n        this.grade = grade;\n        this.feeStatus = feeStatus;\n        this.isApproved = isApproved;\n    }\n\n    @Override\n    public String getUserId() {\n        return userId;\n    }\n\n    @Override\n    public void setUserId(String userId) {\n        this.userId = userId;\n    }\n\n    public int getSemester() {\n        return semester;\n    }\n\n    public void setSemester(int semester) {\n        this.semester = semester;\n    }\n\n    public String getGrade() {\n        return grade;\n    }\n\n    public void setGrade(String grade) {\n        this.grade = grade;\n    }\n\n    public String isFeeStatus() {\n        return feeStatus;\n    }\n\n    public void setFeeStatus(String feeStatus) {\n        this.feeStatus = feeStatus;\n    }\n\n    public boolean isApproved() {\n        return isApproved;\n    }\n\n    public void setApproved(boolean isApproved) {\n        this.isApproved = isApproved;\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/Student.java b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/Student.java
+--- a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/Student.java	(revision f14f0a959b518f5763d530ef98585d6e0c83fbd5)
++++ b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/Student.java	(date 1655389974476)
+@@ -1,5 +1,11 @@
+ package com.flipkart.bean;
++/**
++ * Student class represents the student.
++ */
+ 
++/**
++ *
++ */
+ public class Student extends User {
+ 
+     private String userId;
+@@ -9,16 +15,17 @@
+     private boolean isApproved;
+ 
+     /**
+-     * @param userId
+-     * @param userName
+-     * @param emailId
+-     * @param password
+-     * @param contactNo
++     * Constructor of class student
++     * @param userId: user id of the student
++     * @param userName: name of the student
++     * @param emailId: email of the student
++     * @param password: password set by the student
++     * @param contactNo: contact number of the student
+      * @param userId1
+-     * @param semester
+-     * @param grade
+-     * @param feeStatus
+-     * @param isApproved
++     * @param semester: semester of the student
++     * @param grade: grades obtained by the student
++     * @param feeStatus: fees status of the student
++     * @param isApproved: is the student approved or not
+      */
+     public Student(String userId, String userName, String emailId, String password, String contactNo, String userId1, int semester, String grade, String feeStatus, boolean isApproved) {
+         super(userId, userName, emailId, password, contactNo);
+@@ -29,44 +36,81 @@
+         this.isApproved = isApproved;
+     }
+ 
++
+     @Override
+     public String getUserId() {
+         return userId;
+     }
+ 
++    /**
++     * Sets user id of the student
++     * @param userId
++     */
+     @Override
+     public void setUserId(String userId) {
+         this.userId = userId;
+     }
+ 
++    /**
++     * returns current semester of the student
++     * @return
++     */
+     public int getSemester() {
+         return semester;
+     }
+ 
++    /**
++     * sets semester of the student
++     * @param semester
++     */
+     public void setSemester(int semester) {
+         this.semester = semester;
+     }
+ 
++    /**
++     * returns grade obtained by the student
++     * @return
++     */
+     public String getGrade() {
+         return grade;
+     }
+ 
++    /**
++     * sets grade obtained by the student
++     * @param grade
++     */
+     public void setGrade(String grade) {
+         this.grade = grade;
+     }
+ 
++    /**
++     * returns fee status of the student's account
++     * @return
++     */
+     public String isFeeStatus() {
+         return feeStatus;
+     }
+ 
++    /**
++     * sets fee status of the student's account
++     * @param feeStatus
++     */
+     public void setFeeStatus(String feeStatus) {
+         this.feeStatus = feeStatus;
+     }
+ 
++    /**
++     * returns status of student's account
++     * @return
++     */
+     public boolean isApproved() {
+         return isApproved;
+     }
+ 
++    /**
++     *
++     * @param isApproved
++     */
+     public void setApproved(boolean isApproved) {
+         this.isApproved = isApproved;
+     }
+Index: CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/PaymentBill.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.flipkart.bean;\n\npublic class PaymentBill {\n    private String paymentType;\n\n    public PaymentBill(String paymentType) {\n        this.paymentType = paymentType;\n    }\n\n    public String getPaymentType() {\n        return paymentType;\n    }\n\n    public void setPaymentType(String paymentType) {\n        this.paymentType = paymentType;\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/PaymentBill.java b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/PaymentBill.java
+--- a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/PaymentBill.java	(revision f14f0a959b518f5763d530ef98585d6e0c83fbd5)
++++ b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/bean/PaymentBill.java	(date 1655386841171)
+@@ -1,8 +1,15 @@
+ package com.flipkart.bean;
+ 
++/**
++ * Payment bill class stores the type of Payment.
++ */
+ public class PaymentBill {
+     private String paymentType;
+ 
++    /**
++     * Constructor for PaymentBill class.
++     * @param paymentType
++     */
+     public PaymentBill(String paymentType) {
+         this.paymentType = paymentType;
+     }
+@@ -11,6 +18,10 @@
+         return paymentType;
+     }
+ 
++    /**
++     * Sets payment type to the variable PaymentType
++     * @param paymentType
++     */
+     public void setPaymentType(String paymentType) {
+         this.paymentType = paymentType;
+     }
+Index: CRS-Jedi-D-Flipkart-POS/src/com/flipkart/application/CrsStudentMenu.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.flipkart.application;\n\nimport com.flipkart.bean.Course;\nimport com.flipkart.bean.Student;\nimport com.flipkart.dao.StudentDaoImplementation;\nimport com.flipkart.exception.CourseAlreadyRegisteredException;\nimport com.flipkart.service.PaymentServiceImplementation;\nimport com.flipkart.service.PaymentServiceInterface;\nimport com.flipkart.service.StudentOperations;\n\nimport java.io.BufferedReader;\nimport java.io.IOException;\nimport java.io.InputStreamReader;\nimport java.sql.SQLException;\nimport java.util.ArrayList;\n\npublic class CrsStudentMenu {\n\n    public void studentMenu(Student student) throws IOException, SQLException, CourseAlreadyRegisteredException {\n        while (true) {\n            System.out.println(\"\");\n            System.out.println(\"-----STUDENT MENU-----\");\n            System.out.println(\"1.view Details\\n2.view Current Courses\\n3.Register for New Courses\\n4.View Grade Card\\n5.Pay Fee\\n6.Check Fee Status\\n7.View Current Registered Courses\\n8.Exit\\n\");\n            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));\n            System.out.println(\"Please Enter your choice\");\n            int option = Integer.parseInt(br.readLine());\n            StudentOperations studentOperations = new StudentOperations();\n            StudentDaoImplementation studentDaoImplementation = new StudentDaoImplementation();\n            switch (option) {\n                case 1:\n                    System.out.println(\"Student Details -------\");\n                    System.out.println(\"Student Id: \" + student.getUserId() + \"\\nStudent Name: \" + student.getUserName() + \"\\nEmail Id: \" + student.getEmailId() + \"\\nSemester: \" + student.getSemester());\n                    System.out.println(\"\");\n                    break;\n                case 2:\n                    System.out.println(\"List of Courses Available\");\n                    ArrayList<Course> courses = (ArrayList<Course>) studentOperations.viewCourses();\n                    System.out.println(\"CourseId-CourseName\");\n                    for (Course c : courses)\n                        System.out.println(c.getCourseId() + \"\\t-\\t\" + c.getCourseName());\n                    break;\n                case 3:\n                    System.out.println(\"Register for the courses\");\n                    studentOperations.registerCourses(student.getUserId());\n                    break;\n                case 4:\n                    System.out.println(\"Student Report Card\");\n                    studentOperations.viewGradeCard(student.getUserId());\n                    break;\n                case 5:\n                    System.out.println(\"Pay Fee\");\n                    PaymentServiceInterface psi = new PaymentServiceImplementation();\n                    psi.payFees(student);\n                    break;\n                case 6:\n                    System.out.println(\"Current Fee Status Says : \");\n                    System.out.println(studentDaoImplementation.getfeeStatus(student.getUserId()));\n                    break;\n                case 7:\n                    System.out.println(\"You are Registered to following Courses :\");\n                    studentOperations.registeredCourseList(student.getUserId());\n                    break;\n                case 8:\n                    return;\n                default:\n                    System.out.println(\"Exit\");\n            }\n        }\n    }\n\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/application/CrsStudentMenu.java b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/application/CrsStudentMenu.java
+--- a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/application/CrsStudentMenu.java	(revision f14f0a959b518f5763d530ef98585d6e0c83fbd5)
++++ b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/application/CrsStudentMenu.java	(date 1655384472087)
+@@ -14,8 +14,18 @@
+ import java.sql.SQLException;
+ import java.util.ArrayList;
+ 
++/**
++ * A class for displaying the interface for users if they are registered as a student
++ */
+ public class CrsStudentMenu {
+ 
++    /**
++     * A function for displaying the interface for users if they are registered as a student
++     * @param student
++     * @throws IOException
++     * @throws SQLException
++     * @throws CourseAlreadyRegisteredException
++     */
+     public void studentMenu(Student student) throws IOException, SQLException, CourseAlreadyRegisteredException {
+         while (true) {
+             System.out.println("");
+Index: CRS-Jedi-D-Flipkart-POS/src/com/flipkart/application/CrsProfessorMenu.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.flipkart.application;\n\nimport com.flipkart.bean.Course;\nimport com.flipkart.bean.Professor;\nimport com.flipkart.service.ProfessorService;\n\nimport java.io.BufferedReader;\nimport java.io.IOException;\nimport java.io.InputStreamReader;\nimport java.sql.SQLException;\nimport java.util.ArrayList;\nimport java.util.Map;\n\npublic class CrsProfessorMenu {\n    ProfessorService profServ = new ProfessorService();\n\n    public void professorMenu(Professor professor) throws IOException, SQLException {\n        while (true) {\n            System.out.println(\"---Professor Menu-----\");\n            System.out.println(\"1.view Details\\n2.view Courses\\n3.Register for Courses\\n4.View Enrolled Students in courses\\n5.Make Report Card for a student\\n6.Exit\");\n            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));\n            System.out.println(\"Enter the choice\");\n            int option = Integer.parseInt(br.readLine());\n            switch (option) {\n                case 1:\n                    System.out.println(\"Details\");\n                    System.out.println(\"Id: \" + professor.getUserId() + \"\\nProfessorName: \" + professor.getUserName() + \"\\nEmailId: \" + professor.getEmailId() + \"\\nAreaOfExpertise: \" + professor.getAreaOfExpertise() + \"\\nYearsOfExperience: \" + professor.getYearsOfExperience());\n                    break;\n                case 2:\n                    ArrayList<Course> courses = profServ.viewAllCourses();\n                    System.out.println(\"CourseId-CourseName\");\n                    for (Course c : courses)\n                        System.out.println(c.getCourseId() + \"\\t-\\t\" + c.getCourseName());\n                    break;\n                case 3:\n                    System.out.println(\"Register for the courses\");\n                    profServ.registerCourses(professor);\n                    break;\n                case 4:\n                    System.out.println(\"View enrolled students in each course\");\n                    Map<String, ArrayList<String>> courseWithStudents = profServ.viewEnrolledStudents(professor);\n                    int courseindex = 1;\n                    for (String CourseName : courseWithStudents.keySet()) {\n                        System.out.println(courseindex + \". \" + \"(\" + CourseName + \")\");\n                        int studentsIndex = 1;\n                        for (String student : courseWithStudents.get(CourseName)) {\n                            System.out.println(\"\\t\" + studentsIndex + \". (\" + student + \")\");\n                            studentsIndex++;\n                        }\n                        courseindex++;\n                    }\n                    break;\n                case 5:\n                    System.out.println(\"Make a report card for a student\");\n                    profServ.assignGrades(professor);\n                    break;\n                case 6:\n                    return;\n                default:\n                    System.out.println(\"Invalid Choice\");\n\n            }\n        }\n    }\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/application/CrsProfessorMenu.java b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/application/CrsProfessorMenu.java
+--- a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/application/CrsProfessorMenu.java	(revision f14f0a959b518f5763d530ef98585d6e0c83fbd5)
++++ b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/application/CrsProfessorMenu.java	(date 1655384472093)
+@@ -11,9 +11,18 @@
+ import java.util.ArrayList;
+ import java.util.Map;
+ 
++/**
++ * A class for displaying the interface for users if they are registered as a professor
++ */
+ public class CrsProfessorMenu {
+     ProfessorService profServ = new ProfessorService();
+ 
++    /**
++     * Function for displaying the interface if the user is registered as a professor
++     * @param professor
++     * @throws IOException
++     * @throws SQLException
++     */
+     public void professorMenu(Professor professor) throws IOException, SQLException {
+         while (true) {
+             System.out.println("---Professor Menu-----");

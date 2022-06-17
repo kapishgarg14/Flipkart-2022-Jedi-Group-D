@@ -1,0 +1,309 @@
+Index: CRS-Jedi-D-Flipkart-POS/src/com/flipkart/dao/AdminDaoImplementation.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.flipkart.dao;\n\nimport com.flipkart.bean.Course;\nimport com.flipkart.bean.Professor;\nimport com.flipkart.constants.SQLQueriesConstants;\nimport com.flipkart.utils.DBUtils;\n\nimport java.sql.*;\nimport java.util.ArrayList;\nimport java.util.Scanner;\n\nclass pair {\n    String s;\n    int c;\n\n    public pair(String s, int c) {\n        this.s = s;\n        this.c = c;\n    }\n\n    ;\n}\n\npublic class AdminDaoImplementation implements AdminDaoInterface {\n\n//    final org.apache.log4j.Logger logger = Logger.getLogger(AdminDaoImplementation.class);\n\n    private static volatile AdminDaoImplementation instance = null;\n\n    public AdminDaoImplementation() {\n    }\n\n    public static AdminDaoImplementation getInstance() {\n        if (instance == null) {\n            synchronized (AdminDaoImplementation.class) {\n                instance = new AdminDaoImplementation();\n            }\n        }\n        return instance;\n    }\n\n    @Override\n    public boolean addProfessor(Professor professor) {\n        boolean ok = true;\n        try {\n            Connection con = DBUtils.getConnection();\n            Statement stmt = con.createStatement();\n            if (con == null) System.out.println(\"connection not established\");\n            PreparedStatement preparedStatement = con.prepareStatement(SQLQueriesConstants.ADD_USER_QUERY);\n            preparedStatement.setString(1, professor.getUserId());\n            preparedStatement.setString(2, professor.getPassword());\n            preparedStatement.setString(3, professor.getUserName());\n            preparedStatement.setString(4, professor.getEmailId());\n            preparedStatement.setString(5, professor.getContactNo());\n            preparedStatement.setInt(6, 2);\n\n            int rows = preparedStatement.executeUpdate();\n\n            PreparedStatement preparedStatement1 = con.prepareStatement(SQLQueriesConstants.ADD_PROFESSOR_QUERY);\n            preparedStatement1.setString(1, professor.getUserId());\n            preparedStatement1.setString(2, professor.getAreaOfExpertise());\n            preparedStatement1.setInt(3, professor.getYearsOfExperience());\n            int rowsAffected1 = preparedStatement1.executeUpdate();\n\n            if (rowsAffected1 == 1 && rows == 1) {\n                ok = true;\n            }\n        } catch (SQLException e) {\n            ok = false;\n            System.out.println(e.getMessage());\n//            e.printStackTrace();\n        }\n        return ok;\n    }\n\n    public boolean validateCredentials(String adminId, String password) {\n        try {\n            Connection conn = DBUtils.getConnection();\n\n            String sql = \"SELECT * FROM user, admin where userId like '\" + adminId + \"' and adminId like '\" + adminId + \"' and user.password like  '\" + password + \"'\";\n//            String sql = \"select * from user where userid=\"+studentId+\" and password=\"+password;\n            PreparedStatement statement = conn.prepareStatement(sql);\n            ResultSet rs = statement.executeQuery();\n            if (rs.next())\n                return true;\n        } catch (Exception e) {\n            System.out.println(e);\n            return false;\n        }\n        return false;\n    }\n\n    @Override\n    public boolean addCourse(Course course) {\n        boolean ok = true;\n        try {\n            Connection con = DBUtils.getConnection();\n            Statement stmt = con.createStatement();\n            if (con == null) System.out.println(\"connection not established\");\n            String sql = \"insert into course values(\" + course.getCourseId() + \", '\" + course.getCourseName() + \"')\";\n            stmt.executeUpdate(sql);\n        } catch (SQLException e) {\n            ok = false;\n            System.out.println(e.getMessage());\n            e.printStackTrace();\n        }\n        return ok;\n    }\n\n    @Override\n    public boolean dropCourse(int courseId) {\n        boolean ok = true;\n        try {\n            Connection con = DBUtils.getConnection();\n            Statement stmt = con.createStatement();\n            if (con == null) System.out.println(\"connection not established\");\n            String sql = \"DELETE FROM course WHERE courseId= \" + courseId;\n            stmt.executeUpdate(sql);\n        } catch (SQLException e) {\n            ok = false;\n            //System.out.println(e.getMessage());\n            e.printStackTrace();\n        }\n        return ok;\n    }\n\n    @Override\n    public boolean approveStudents() {\n        boolean ok = true;\n        try {\n            Connection con = DBUtils.getConnection();\n            Statement stmt = con.createStatement();\n            if (con == null) System.out.println(\"connection not established\");\n            Scanner in = new Scanner(System.in);\n            int ch = 1;\n            while (ch != 0) {\n                String sql = \"select * from student where isApproved=0\";\n                ResultSet rs = stmt.executeQuery(sql);\n                int flag = 0;\n                System.out.println(\"Here is a list of all pending students ++++++++++++\");\n                while (rs.next()) {\n                    String sId = rs.getString(1);\n                    System.out.println(rs.getString(1));\n                    flag = 1;\n//                String s = \"select * from user where userId = \" +sId;\n//                Statement st = con.createStatement();\n//                ResultSet r = st.executeQuery(s);\n//                System.out.println(r.getString(3)+ \" \" +r.getString(4));\n                }\n                if (flag == 1) {\n                    System.out.println(\"Enter student id\");\n                    String id = in.next();\n                    String sql1 = \"UPDATE student SET isApproved = 1 where studentId = ?\";\n                    PreparedStatement statement = con.prepareStatement(sql1);\n                    statement.setString(1, id);\n                    statement.executeUpdate();\n                    //statement.executeQuery(sql);\n                } else {\n                    System.out.println(\"<<<<<<< No student left to be approved >>>>>>>>>>>\");\n                }\n                System.out.println(\"To exit, press 0 : To continue, press 1\");\n                ch = in.nextInt();\n            }\n        } catch (SQLException e) {\n            ok = false;\n            System.out.println(e.getMessage());\n            e.printStackTrace();\n        }\n        return ok;\n    }\n\n    public boolean isApproved(String studentId) throws Exception {\n        Connection con = DBUtils.getConnection();\n        String sql = \"select * from student where studentId=? and isApproved = 1\";\n        PreparedStatement stmt = con.prepareStatement(sql);\n        stmt.setString(1, studentId);\n        ResultSet rs = stmt.executeQuery();\n        while (rs.next()) {\n            return true;\n        }\n        return false;\n    }\n\n    public void approveStudents(String studentId) throws Exception {\n        String id = studentId;\n        String sql1 = \"UPDATE student SET isApproved = 1 where studentId = ?\";\n        Connection con = DBUtils.getConnection();\n        PreparedStatement statement = con.prepareStatement(sql1);\n        statement.setString(1, id);\n        statement.executeUpdate();\n    }\n\n    public void registerCourse() throws Exception {\n\n        Scanner sc = new Scanner(System.in);\n\n        String studentId;\n        int courseId;\n\n        int flag = 0;\n\n        while (flag == 0) {\n            ArrayList<String> studentList = new ArrayList<String>();\n            ArrayList<pair> studentCourseList = new ArrayList<pair>();\n\n            Connection con = DBUtils.getConnection();\n\n            String getStudents = \"select distinct userId from registrar where registered = false\";\n            PreparedStatement stmt1 = con.prepareStatement(getStudents);\n\n            ResultSet rs = stmt1.executeQuery();\n\n            while (rs.next()) {\n                studentId = rs.getString(1);\n\n                String checkCourses = \"select count(*) from registrar where registered = true and userId = ?\";\n                stmt1 = con.prepareStatement(checkCourses);\n                stmt1.setString(1, studentId);\n\n                ResultSet count = stmt1.executeQuery();\n                if (count.next()) {\n                    if (count.getInt(1) < 4) {\n                        studentList.add(studentId);\n                    }\n                }\n            }\n\n            System.out.println(\"Student ID\\t-\\tCourse ID\");\n\n            for (String student : studentList) {\n\n                String getCourseStudent = \"select courseId, userId from registrar where registered = false and userId = ?\";\n\n                stmt1 = con.prepareStatement(getCourseStudent);\n                stmt1.setString(1, student);\n\n                rs = stmt1.executeQuery();\n\n                while (rs.next()) {\n                    studentCourseList.add(new pair(rs.getString(2), rs.getInt(1)));\n                }\n\n            }\n\n            for (pair sc1 : studentCourseList)\n                System.out.println(sc1.s + \"\\t-\\t\" + sc1.c);\n\n            System.out.println(\"++++++++++++++++++++++++++++++++++++++++\");\n            System.out.println(\"Enter Student ID:\");\n\n            studentId = sc.next();\n\n            System.out.println(\"Enter Course ID:\");\n\n            courseId = sc.nextInt();\n\n            System.out.println(\"++++++++++++++++++++++++++++++++++++++++++++++++\");\n\n\n            flag = 0;\n\n            for (pair scl : studentCourseList) {\n\n//\t    \t\tSystem.out.println(scl.s+\" \"+studentId+\" \"+scl.c+\" \"+courseId);\n\n                if (scl.s.equals(studentId) && scl.c == courseId) {\n                    String sql = \"update registrar set registered = true where courseId = ? and userId = ?;\";\n\n                    PreparedStatement stmt = con.prepareStatement(sql);\n                    stmt.setString(2, studentId);\n                    stmt.setInt(1, courseId);\n                    stmt.executeUpdate();\n\n                    System.out.println(\"Student Registered!\");\n                    flag = 1;\n                    break;\n                }\n            }\n\n            if (flag == 0) System.out.println(\"Please Enter Student Id and Course Id from list displayed only!!\");\n\n\n            System.out.println(\"++++++++++++++++++++++++++++++++++++++++++++++++\");\n            System.out.println(\"enter 0 to continue; 1 to quit!!\");\n\n            flag = sc.nextInt();\n        }\n\n    }\n//\n//    @Override\n//    public ArrayList<Grade> fetchGrade(int userId) {\n//        return null;\n//    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/dao/AdminDaoImplementation.java b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/dao/AdminDaoImplementation.java
+--- a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/dao/AdminDaoImplementation.java	(revision f14f0a959b518f5763d530ef98585d6e0c83fbd5)
++++ b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/dao/AdminDaoImplementation.java	(date 1655387471472)
+@@ -9,6 +9,9 @@
+ import java.util.ArrayList;
+ import java.util.Scanner;
+ 
++/**
++ * Protected Class for representing pairs
++ */
+ class pair {
+     String s;
+     int c;
+@@ -21,15 +24,23 @@
+     ;
+ }
+ 
++/**
++ * Implementation for methods of Admin DAO Interface
++ */
+ public class AdminDaoImplementation implements AdminDaoInterface {
+ 
+-//    final org.apache.log4j.Logger logger = Logger.getLogger(AdminDaoImplementation.class);
+-
+     private static volatile AdminDaoImplementation instance = null;
+ 
++    /**
++     * Default constructor for the class
++     */
+     public AdminDaoImplementation() {
+     }
+ 
++    /**
++     * Method for making AdminDaoImplementation a singleton
++     * @return
++     */
+     public static AdminDaoImplementation getInstance() {
+         if (instance == null) {
+             synchronized (AdminDaoImplementation.class) {
+@@ -39,6 +50,11 @@
+         return instance;
+     }
+ 
++    /**
++     * Add professor using SQL commands
++     * @param professor
++     * @return whether the professor has been added
++     */
+     @Override
+     public boolean addProfessor(Professor professor) {
+         boolean ok = true;
+@@ -73,6 +89,12 @@
+         return ok;
+     }
+ 
++    /**
++     * Check if user is correct using SQL commands
++     * @param adminId
++     * @param password
++     * @return if the credentials are correct
++     */
+     public boolean validateCredentials(String adminId, String password) {
+         try {
+             Connection conn = DBUtils.getConnection();
+@@ -90,6 +112,11 @@
+         return false;
+     }
+ 
++    /**
++     * Add a course to the catalog using SQL commands
++     * @param course
++     * @return if course has been added
++     */
+     @Override
+     public boolean addCourse(Course course) {
+         boolean ok = true;
+@@ -107,6 +134,11 @@
+         return ok;
+     }
+ 
++    /**
++     * Remove a course using SQL commands
++     * @param courseId
++     * @return if the course has been removed
++     */
+     @Override
+     public boolean dropCourse(int courseId) {
+         boolean ok = true;
+@@ -124,6 +156,10 @@
+         return ok;
+     }
+ 
++    /**
++     * Method to approve students using SQL commands
++     * @return if the student has been approved
++     */
+     @Override
+     public boolean approveStudents() {
+         boolean ok = true;
+@@ -169,6 +205,12 @@
+         return ok;
+     }
+ 
++    /**
++     * Method to check whether a method is approved
++     * @param studentId
++     * @return if a student is approved
++     * @throws Exception
++     */
+     public boolean isApproved(String studentId) throws Exception {
+         Connection con = DBUtils.getConnection();
+         String sql = "select * from student where studentId=? and isApproved = 1";
+@@ -181,6 +223,7 @@
+         return false;
+     }
+ 
++
+     public void approveStudents(String studentId) throws Exception {
+         String id = studentId;
+         String sql1 = "UPDATE student SET isApproved = 1 where studentId = ?";
+@@ -190,6 +233,10 @@
+         statement.executeUpdate();
+     }
+ 
++    /**
++     * Register a student for a course using SQL commands
++     * @throws Exception
++     */
+     public void registerCourse() throws Exception {
+ 
+         Scanner sc = new Scanner(System.in);
+Index: CRS-Jedi-D-Flipkart-POS/src/com/flipkart/dao/PaymentDaoImplementation.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.flipkart.dao;\n\nimport com.flipkart.utils.DBUtils;\n\nimport java.sql.Connection;\nimport java.sql.PreparedStatement;\nimport java.sql.SQLException;\n\npublic class PaymentDaoImplementation implements PaymentDaoInterface {\n    @Override\n    public void insertIntoPayment(String paymentId, String paymentType) throws SQLException {\n        String sql = \"INSERT INTO `payment`\\n\" +\n                \"(`paymentType`,\\n\" +\n                \"`paymentId`)\\n\" +\n                \"VALUES\\n\" +\n                \"(?,\\n\" +\n                \"?);\\n\";\n        Connection conn = DBUtils.getConnection();\n        PreparedStatement statement = conn.prepareStatement(sql);\n        statement.setString(1, paymentType);\n        statement.setString(2, paymentId);\n        statement.executeUpdate();\n    }\n\n    @Override\n    public void insertIntoBookkeeper(String paymentId, String studentId, int semester) throws SQLException {\n        String sql = \"INSERT INTO `feePaymentRecord`\\n\" +\n                \"(`paymentId`,\\n\" +\n                \"`StudentID`,\\n\" +\n                \"`semester`)\\n\" +\n                \"VALUES\\n\" +\n                \"(?,\\n\" +\n                \"?,\\n\" +\n                \"?);\\n\";\n        Connection conn = DBUtils.getConnection();\n        PreparedStatement statement = conn.prepareStatement(sql);\n        statement.setString(1, paymentId);\n        statement.setString(2, studentId);\n        statement.setInt(3, semester);\n        statement.executeUpdate();\n    }\n\n    @Override\n    public void updateFeeStatus(String studentId) throws SQLException {\n        String sql = \"UPDATE `student`\\n\" +\n                \"SET\\n\" +\n                \"`feeStatus` = ?\\n\" +\n                \"WHERE `studentId` = ?;\";\n        Connection conn = DBUtils.getConnection();\n        PreparedStatement statement = conn.prepareStatement(sql);\n        statement.setString(1, studentId);\n        statement.setString(2, \"1\");\n        statement.executeUpdate();\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/dao/PaymentDaoImplementation.java b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/dao/PaymentDaoImplementation.java
+--- a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/dao/PaymentDaoImplementation.java	(revision 9ec2baae05239dafbcc8ea82b9b97355f173ec31)
++++ b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/dao/PaymentDaoImplementation.java	(date 1655389641349)
+@@ -6,7 +6,16 @@
+ import java.sql.PreparedStatement;
+ import java.sql.SQLException;
+ 
++/**
++ * Class for representing the DAO implementation of payments
++ */
+ public class PaymentDaoImplementation implements PaymentDaoInterface {
++    /**
++     * Mehthod to add a payment to the database using SQL commands
++     * @param paymentId
++     * @param paymentType
++     * @throws SQLException
++     */
+     @Override
+     public void insertIntoPayment(String paymentId, String paymentType) throws SQLException {
+         String sql = "INSERT INTO `payment`\n" +
+@@ -22,6 +31,13 @@
+         statement.executeUpdate();
+     }
+ 
++    /**
++     * Method to keep track of which student has paid using SQL queries
++     * @param paymentId
++     * @param studentId
++     * @param semester
++     * @throws SQLException
++     */
+     @Override
+     public void insertIntoBookkeeper(String paymentId, String studentId, int semester) throws SQLException {
+         String sql = "INSERT INTO `feePaymentRecord`\n" +
+@@ -40,6 +56,11 @@
+         statement.executeUpdate();
+     }
+ 
++    /**
++     * Method to update the fee status of the given student
++     * @param studentId
++     * @throws SQLException
++     */
+     @Override
+     public void updateFeeStatus(String studentId) throws SQLException {
+         String sql = "UPDATE `student`\n" +
+Index: CRS-Jedi-D-Flipkart-POS/src/com/flipkart/dao/StudentDaoInterface.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.flipkart.dao;\n\nimport com.flipkart.bean.Course;\nimport com.flipkart.bean.GradeCard;\nimport com.flipkart.bean.Student;\nimport com.flipkart.exception.CourseAlreadyRegisteredException;\n\nimport java.sql.SQLException;\nimport java.util.ArrayList;\n\npublic interface StudentDaoInterface {\n    String addStudent() throws SQLException, ClassNotFoundException;\n\n    Student getStudent(String studentId) throws SQLException;\n\n    Student validateCredentials(String studentId, String password);\n\n    String getfeeStatus(String studentId) throws SQLException;\n\n    ArrayList<Integer> registeredCoursesList(String studentId) throws SQLException;\n\n    void registerCourses(String studentId, ArrayList<Integer> courses) throws SQLException, CourseAlreadyRegisteredException;\n\n    ArrayList<Course> viewCourses() throws SQLException;\n\n    Course viewCourse(int courseId) throws SQLException;\n\n    String removeStudent(String studentId) throws SQLException;\n\n    ArrayList<GradeCard> viewGrades(String studentId) throws SQLException;\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/dao/StudentDaoInterface.java b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/dao/StudentDaoInterface.java
+--- a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/dao/StudentDaoInterface.java	(revision f14f0a959b518f5763d530ef98585d6e0c83fbd5)
++++ b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/dao/StudentDaoInterface.java	(date 1655389974407)
+@@ -8,6 +8,9 @@
+ import java.sql.SQLException;
+ import java.util.ArrayList;
+ 
++/**
++ * Interface for the DAO operations for students
++ */
+ public interface StudentDaoInterface {
+     String addStudent() throws SQLException, ClassNotFoundException;
+ 
+Index: CRS-Jedi-D-Flipkart-POS/src/com/flipkart/dao/GeneralLoginDaoImplementation.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>/**\n *\n */\npackage com.flipkart.dao;\n\nimport com.flipkart.utils.DBUtils;\n\nimport java.sql.*;\n\n/**\n * @author saumya\n *\n */\npublic class GeneralLoginDaoImplementation implements GeneralLoginDaoInterface {\n\n    private static volatile GeneralLoginDaoImplementation instance = null;\n\n    public GeneralLoginDaoImplementation() {\n    }\n\n    public static GeneralLoginDaoImplementation getInstance() {\n        if (instance == null) {\n            synchronized (AdminDaoImplementation.class) {\n                instance = new GeneralLoginDaoImplementation();\n            }\n        }\n        return instance;\n    }\n\n    @Override\n    public int getUserType(String userId) {\n        // TODO Auto-generated method stub\n        try {\n            Connection con = DBUtils.getConnection();\n            Statement stmt = con.createStatement();\n            if (con == null) System.out.println(\"connection not established\");\n            PreparedStatement preparedStatement = con.prepareStatement(\"select role from user where userid = ?\");\n            preparedStatement.setString(1, userId);\n\n            ResultSet rows = preparedStatement.executeQuery();\n\n            if (rows.next()) {\n                return rows.getInt(1);\n            } else {\n                return 0;\n            }\n        } catch (SQLException e) {\n\n            System.out.println(e.getMessage());\n            e.printStackTrace();\n        }\n\n\n        return 0;\n    }\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/dao/GeneralLoginDaoImplementation.java b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/dao/GeneralLoginDaoImplementation.java
+--- a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/dao/GeneralLoginDaoImplementation.java	(revision f14f0a959b518f5763d530ef98585d6e0c83fbd5)
++++ b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/dao/GeneralLoginDaoImplementation.java	(date 1655388996942)
+@@ -8,13 +8,16 @@
+ import java.sql.*;
+ 
+ /**
++ * Class for Implementation of commands for common login system
+  * @author saumya
+- *
+  */
+ public class GeneralLoginDaoImplementation implements GeneralLoginDaoInterface {
+ 
+     private static volatile GeneralLoginDaoImplementation instance = null;
+ 
++    /**
++     * Default constructor for the class
++     */
+     public GeneralLoginDaoImplementation() {
+     }
+ 
+@@ -27,6 +30,11 @@
+         return instance;
+     }
+ 
++    /**
++     * Method to return the type of the user
++     * @param userId
++     * @return the type of the user
++     */
+     @Override
+     public int getUserType(String userId) {
+         // TODO Auto-generated method stub
+Index: CRS-Jedi-D-Flipkart-POS/src/com/flipkart/dao/GeneralLoginDaoInterface.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>/**\n *\n */\npackage com.flipkart.dao;\n\n/**\n * @author saumya\n *\n */\npublic interface GeneralLoginDaoInterface {\n\n    int getUserType(String userId);\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/dao/GeneralLoginDaoInterface.java b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/dao/GeneralLoginDaoInterface.java
+--- a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/dao/GeneralLoginDaoInterface.java	(revision f14f0a959b518f5763d530ef98585d6e0c83fbd5)
++++ b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/dao/GeneralLoginDaoInterface.java	(date 1655389358426)
+@@ -4,6 +4,7 @@
+ package com.flipkart.dao;
+ 
+ /**
++ * Interface for the common login system
+  * @author saumya
+  *
+  */
+Index: CRS-Jedi-D-Flipkart-POS/src/com/flipkart/dao/AdminDaoInterface.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.flipkart.dao;\n\nimport com.flipkart.bean.Course;\nimport com.flipkart.bean.Professor;\n\npublic interface AdminDaoInterface {\n    default boolean addProfessor(Professor professor) {\n        return false;\n    }\n\n    boolean addCourse(Course course);\n\n    boolean dropCourse(int courseId);\n\n    boolean approveStudents();\n\n    boolean validateCredentials(String adminId, String password);\n\n    void registerCourse() throws Exception;\n\n//    ArrayList<Grade> fetchGrade(int userId);\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/dao/AdminDaoInterface.java b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/dao/AdminDaoInterface.java
+--- a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/dao/AdminDaoInterface.java	(revision f14f0a959b518f5763d530ef98585d6e0c83fbd5)
++++ b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/dao/AdminDaoInterface.java	(date 1655387485481)
+@@ -3,6 +3,9 @@
+ import com.flipkart.bean.Course;
+ import com.flipkart.bean.Professor;
+ 
++/**
++ * Interface for the Admin DAO operations
++ */
+ public interface AdminDaoInterface {
+     default boolean addProfessor(Professor professor) {
+         return false;
+Index: CRS-Jedi-D-Flipkart-POS/src/com/flipkart/dao/ProfessorUtilsInterface.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.flipkart.dao;\n\nimport com.flipkart.bean.Course;\nimport com.flipkart.bean.Professor;\n\nimport java.sql.SQLException;\nimport java.util.ArrayList;\nimport java.util.Map;\n\npublic interface ProfessorUtilsInterface {\n    public Professor validateCredentialsWithDB(String userId, String password) throws ClassNotFoundException, SQLException;\n\n    public ArrayList<Course> viewCoursesWithDB() throws SQLException, ClassNotFoundException;\n\n    public void registerCoursesWithDB(Professor professor, Course course) throws SQLException;\n\n    public ArrayList<Course> viewAvailableCoursesWithDB(Professor professor) throws SQLException;\n\n    public Map<String, ArrayList<String>> viewEnrolledStudentsWithDB(Professor professor) throws SQLException;\n\n    public void provideGrade(int courseId, String studentId, String Grade) throws SQLException;\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/dao/ProfessorUtilsInterface.java b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/dao/ProfessorUtilsInterface.java
+--- a/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/dao/ProfessorUtilsInterface.java	(revision f14f0a959b518f5763d530ef98585d6e0c83fbd5)
++++ b/CRS-Jedi-D-Flipkart-POS/src/com/flipkart/dao/ProfessorUtilsInterface.java	(date 1655389974430)
+@@ -7,6 +7,9 @@
+ import java.util.ArrayList;
+ import java.util.Map;
+ 
++/**
++ * Interface for helper functions for professors
++ */
+ public interface ProfessorUtilsInterface {
+     public Professor validateCredentialsWithDB(String userId, String password) throws ClassNotFoundException, SQLException;
+ 
