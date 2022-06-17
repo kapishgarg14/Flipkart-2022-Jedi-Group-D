@@ -7,6 +7,7 @@ import com.flipkart.exception.CourseAlreadyRegisteredException;
 import com.flipkart.service.PaymentServiceImplementation;
 import com.flipkart.service.PaymentServiceInterface;
 import com.flipkart.service.StudentOperations;
+import com.flipkart.dao.NotificationDaoImplementation;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -26,7 +27,7 @@ public class CrsStudentMenu {
         while (true) {
             System.out.println("");
             System.out.println("-----STUDENT MENU-----");
-            System.out.println("1.view Details\n2.view Current Courses\n3.Register for New Courses\n4.View Grade Card\n5.Pay Fee\n6.Check Fee Status\n7.View Current Registered Courses\n8.Exit\n");
+            System.out.println("1.view Details\n2.view Current Courses\n3.Register for New Courses\n4.View Grade Card\n5.Pay Fee\n6.Check Fee Status\n7.View Current Registered Courses\n8. View All Notifications\n9.Exit\n");
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             System.out.println("Please Enter your choice");
             int option = Integer.parseInt(br.readLine());
@@ -67,6 +68,11 @@ public class CrsStudentMenu {
                     studentOperations.registeredCourseList(student.getUserId());
                     break;
                 case 8:
+                    System.out.println("Your notifications: ");
+                    NotificationDaoImplementation notificationDaoImplementation = new NotificationDaoImplementation();
+                    notificationDaoImplementation.getAllNotifications(student.getUserId());
+                    break;
+                case 9:
                     return;
                 default:
                     System.out.println("Exit");

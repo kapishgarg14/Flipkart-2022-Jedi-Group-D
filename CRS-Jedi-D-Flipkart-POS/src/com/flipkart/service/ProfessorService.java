@@ -2,7 +2,7 @@ package com.flipkart.service;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
-import com.flipkart.dao.ProfessorOperations;
+import com.flipkart.dao.ProfessorDaoImplementation;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class ProfessorService implements ProfessorServiceInterface {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    ProfessorOperations profOp = new ProfessorOperations();
+    ProfessorDaoImplementation profOp = new ProfessorDaoImplementation();
 
     public Professor validateCredentials(String userId, String password) {
 

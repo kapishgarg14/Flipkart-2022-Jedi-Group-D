@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
 
-public interface ProfessorUtilsInterface {
+public interface ProfessorDaoInterface {
     public ArrayList<Course> viewAvailableCoursesWithDB(Professor professor) throws SQLException;
     /**
      * Method for retrieving the students enrolled in a course using SQL commands

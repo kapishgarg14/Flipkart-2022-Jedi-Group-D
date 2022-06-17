@@ -11,17 +11,17 @@ import java.sql.*;
  * @author saumya
  *
  */
-public class LoginDaoImplementation implements GeneralLoginDaoInterface {
+public class LoginDaoImplementation implements LoginDaoInterface {
 
-    private static volatile GeneralLoginDaoImplementation instance = null;
+    private static volatile LoginDaoImplementation instance = null;
 
     public LoginDaoImplementation() {
     }
 
-    public static GeneralLoginDaoImplementation getInstance() {
+    public static LoginDaoImplementation getInstance() {
         if (instance == null) {
             synchronized (AdminDaoImplementation.class) {
-                instance = new GeneralLoginDaoImplementation();
+                instance = new LoginDaoImplementation();
             }
         }
         return instance;

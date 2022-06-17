@@ -3,7 +3,7 @@ package com.flipkart.application;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.dao.AdminDaoImplementation;
-import com.flipkart.dao.GeneralLoginDaoImplementation;
+import com.flipkart.dao.LoginDaoImplementation;
 import com.flipkart.dao.StudentDaoImplementation;
 import com.flipkart.exception.CourseAlreadyRegisteredException;
 import com.flipkart.exception.UserNotFoundException;
@@ -29,7 +29,7 @@ public class CrsLoginMenu {
 
         System.out.println("Validating credentials ........");
 
-        GeneralLoginDaoImplementation loginImplementation = new GeneralLoginDaoImplementation();
+        LoginDaoImplementation loginImplementation = new LoginDaoImplementation();
 
         int userType = loginImplementation.getUserType(userId);
 

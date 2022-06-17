@@ -4,25 +4,27 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.constants.SQLQueriesConstants;
 import com.flipkart.utils.DBUtils;
+import com.flipkart.dao.NotificationDaoImplementation;
+import com.flipkart.constants.NotificationType;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-class pair {
-    String s;
-    int c;
 
-    public pair(String s, int c) {
-        this.s = s;
-        this.c = c;
-    }
-
-    ;
-}
 
 public class AdminDaoImplementation implements AdminDaoInterface {
+    class pair {
+        String s;
+        int c;
 
+        public pair(String s, int c) {
+            this.s = s;
+            this.c = c;
+        }
+
+        ;
+    }
     private static volatile AdminDaoImplementation instance = null;
 
     public AdminDaoImplementation() {
@@ -146,6 +148,8 @@ public class AdminDaoImplementation implements AdminDaoInterface {
                     PreparedStatement statement = con.prepareStatement(sql1);
                     statement.setString(1, id);
                     statement.executeUpdate();
+                    NotificationDaoImplementation notificationDaoImplementation = new NotificationDaoImplementation();
+                    notificationDaoImplementation.insertNotification(id, NotificationType.REGISTRATION_APPROVAL);
                     //statement.executeQuery(sql);
                 } else {
                     System.out.println("<<<<<<< No student left to be approved >>>>>>>>>>>");

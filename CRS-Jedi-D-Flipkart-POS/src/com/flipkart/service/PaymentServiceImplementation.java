@@ -2,9 +2,11 @@ package com.flipkart.service;
 
 import com.flipkart.bean.Student;
 import com.flipkart.constants.PaymentConstants;
+import com.flipkart.dao.NotificationDaoImplementation;
 import com.flipkart.dao.PaymentDaoImplementation;
 import com.flipkart.dao.PaymentDaoInterface;
 import com.flipkart.utils.DBUtils;
+import com.flipkart.constants.NotificationType;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -65,6 +67,8 @@ public class PaymentServiceImplementation implements PaymentServiceInterface {
             System.out.println("Enter Pin");
             upi = s.next();
             pdi.insertIntoBookkeeper(paymentId, student.getUserId(), student.getSemester());
+            NotificationDaoImplementation notificationDaoImplementation = new NotificationDaoImplementation();
+            notificationDaoImplementation.insertNotification(student.getUserId(), NotificationType.PAYMENT);
         } else {
             System.out.println("Incorrect/suspicious operation !!");
             return;

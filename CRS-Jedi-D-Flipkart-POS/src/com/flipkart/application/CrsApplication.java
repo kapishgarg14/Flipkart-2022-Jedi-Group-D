@@ -23,7 +23,7 @@ public class CrsApplication {
             System.out.println("----------WELCOME TO COURSE REGISTRATION SYSTEM ----------");
             System.out.println("#############################################################");
             System.out.println("");
-            System.out.println("Main Menu \n1. Register as a new student\n2. Login\n3.Exit");
+            System.out.println("Main Menu \n1. Register as a new student\n2. Login\n3. Exit");
             System.out.println("#############################################################");
             System.out.println("Enter your choice:");
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

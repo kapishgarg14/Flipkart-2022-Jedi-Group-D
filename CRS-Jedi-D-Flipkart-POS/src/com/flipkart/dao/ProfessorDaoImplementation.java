@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class ProfessorOperations implements ProfessorUtilsInterface {
+public class ProfessorDaoImplementation implements ProfessorDaoInterface {
     public Map<String, ArrayList<String>> viewEnrolledStudentsWithDB(Professor professor) throws SQLException {
 
         Map<String, ArrayList<String>> students = new LinkedHashMap<>();
