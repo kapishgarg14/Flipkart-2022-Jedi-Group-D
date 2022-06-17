@@ -8,10 +8,16 @@ import com.flipkart.dao.AdminDaoInterface;
 public class AdminOperation implements AdminInterface {
     private static volatile AdminOperation instance = null;
 
-    // private constructor
+    /** private constructor
+     * @return constructor
+     */
     private AdminOperation() {
     }
 
+    /**
+     *
+     * @return an Instrance of the class AdminOperation
+     */
     public static AdminOperation getInstance() {
         if (instance == null) {
             synchronized (AdminOperation.class) {
@@ -21,6 +27,10 @@ public class AdminOperation implements AdminInterface {
         return instance;
     }
 
+    /**
+     * add Professor to database
+     * @param professor
+     */
     @Override
     public void addProfessor(Professor professor) {
         AdminDaoInterface admin = AdminDaoImplementation.getInstance();

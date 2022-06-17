@@ -3,6 +3,9 @@ package com.flipkart.service;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 
+/**
+ * Interface for Admin operations
+ */
 public interface AdminInterface {
     public void addProfessor(Professor professor);
 

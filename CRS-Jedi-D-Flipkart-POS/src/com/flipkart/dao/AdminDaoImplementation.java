@@ -23,8 +23,6 @@ class pair {
 
 public class AdminDaoImplementation implements AdminDaoInterface {
 
-//    final org.apache.log4j.Logger logger = Logger.getLogger(AdminDaoImplementation.class);
-
     private static volatile AdminDaoImplementation instance = null;
 
     public AdminDaoImplementation() {
@@ -78,7 +76,6 @@ public class AdminDaoImplementation implements AdminDaoInterface {
             Connection conn = DBUtils.getConnection();
 
             String sql = "SELECT * FROM user, admin where userId like '" + adminId + "' and adminId like '" + adminId + "' and user.password like  '" + password + "'";
-//            String sql = "select * from user where userid="+studentId+" and password="+password;
             PreparedStatement statement = conn.prepareStatement(sql);
             ResultSet rs = statement.executeQuery();
             if (rs.next())
@@ -118,7 +115,6 @@ public class AdminDaoImplementation implements AdminDaoInterface {
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
             ok = false;
-            //System.out.println(e.getMessage());
             e.printStackTrace();
         }
         return ok;
@@ -142,10 +138,6 @@ public class AdminDaoImplementation implements AdminDaoInterface {
                     String sId = rs.getString(1);
                     System.out.println(rs.getString(1));
                     flag = 1;
-//                String s = "select * from user where userId = " +sId;
-//                Statement st = con.createStatement();
-//                ResultSet r = st.executeQuery(s);
-//                System.out.println(r.getString(3)+ " " +r.getString(4));
                 }
                 if (flag == 1) {
                     System.out.println("Enter student id");
@@ -261,7 +253,6 @@ public class AdminDaoImplementation implements AdminDaoInterface {
 
             for (pair scl : studentCourseList) {
 
-//	    		System.out.println(scl.s+" "+studentId+" "+scl.c+" "+courseId);
 
                 if (scl.s.equals(studentId) && scl.c == courseId) {
                     String sql = "update registrar set registered = true where courseId = ? and userId = ?;";
@@ -287,9 +278,4 @@ public class AdminDaoImplementation implements AdminDaoInterface {
         }
 
     }
-//
-//    @Override
-//    public ArrayList<Grade> fetchGrade(int userId) {
-//        return null;
-//    }
 }
