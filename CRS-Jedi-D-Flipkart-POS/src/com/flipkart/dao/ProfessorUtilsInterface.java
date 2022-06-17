@@ -8,6 +8,24 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public interface ProfessorUtilsInterface {
+    public ArrayList<Course> viewAvailableCoursesWithDB(Professor professor) throws SQLException;
+    /**
+     * Method for retrieving the students enrolled in a course using SQL commands
+     *
+     * @param courseId unique Id to represent a course
+     * @return returns a list of strings indicating the students enrolled in a course from the database
+     */
+    public Map<String, ArrayList<String>> viewEnrolledStudentsWithDB(Professor professor) throws SQLException;
+    /**
+     * Method for adding the grades of a student for a course in a semester using SQL commands
+     *
+     * @param studentId unique Id to represent a student
+     * @param courseId unique Id to represent a course
+     * @param grade grade point provided for the student enrolled in the course taught by the professor
+     * @param semester indicates the semester
+     * @return returns a string indicating the if the grade was successfully added in the database
+     */
+    public void provideGrade(int courseId, String studentId, String Grade) throws SQLException;
     public Professor validateCredentialsWithDB(String userId, String password) throws ClassNotFoundException, SQLException;
 
     /**
@@ -28,23 +46,6 @@ public interface ProfessorUtilsInterface {
      */
     public void registerCoursesWithDB(Professor professor, Course course) throws SQLException;
 
-    public ArrayList<Course> viewAvailableCoursesWithDB(Professor professor) throws SQLException;
-    /**
-     * Method for retrieving the students enrolled in a course using SQL commands
-     *
-     * @param courseId unique Id to represent a course
-     * @return returns a list of strings indicating the students enrolled in a course from the database
-     */
-    public Map<String, ArrayList<String>> viewEnrolledStudentsWithDB(Professor professor) throws SQLException;
-    /**
-     * Method for adding the grades of a student for a course in a semester using SQL commands
-     *
-     * @param studentId unique Id to represent a student
-     * @param courseId unique Id to represent a course
-     * @param grade grade point provided for the student enrolled in the course taught by the professor
-     * @param semester indicates the semester
-     * @return returns a string indicating the if the grade was successfully added in the database
-     */
-    public void provideGrade(int courseId, String studentId, String Grade) throws SQLException;
+
 
 }

@@ -9,29 +9,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface StudentDaoInterface {
-    String addStudent() throws SQLException, ClassNotFoundException;
-
-    Student getStudent(String studentId) throws SQLException;
-    /**
-     * Method to validate credentials.
-     *
-     * @param student id of the student, password of student
-     * @return returns student object
-     */
-    Student validateCredentials(String studentId, String password);
-    /**
-     * Method to check the payment status of a student
-     *
-     * @param student id of the student
-     * @return returns true if student has completed the payment
-     */
-    String getfeeStatus(String studentId) throws SQLException;
-    /**
-     * Method to get list of registered courses list.
-     *
-     * @param student id of the student
-     * @return returns list of courseID.
-     */
     ArrayList<Integer> registeredCoursesList(String studentId) throws SQLException;
     /**
      * Method to register courses .
@@ -59,5 +36,29 @@ public interface StudentDaoInterface {
      * @return returns a grade card
      */
     ArrayList<GradeCard> viewGrades(String studentId) throws SQLException;
+    String addStudent() throws SQLException, ClassNotFoundException;
+
+    Student getStudent(String studentId) throws SQLException;
+    /**
+     * Method to validate credentials.
+     *
+     * @param student id of the student, password of student
+     * @return returns student object
+     */
+    Student validateCredentials(String studentId, String password);
+    /**
+     * Method to check the payment status of a student
+     *
+     * @param student id of the student
+     * @return returns true if student has completed the payment
+     */
+    String getfeeStatus(String studentId) throws SQLException;
+    /**
+     * Method to get list of registered courses list.
+     *
+     * @param student id of the student
+     * @return returns list of courseID.
+     */
+
 
 }
