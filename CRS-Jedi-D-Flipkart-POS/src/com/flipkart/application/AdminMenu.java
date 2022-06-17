@@ -105,7 +105,7 @@ public class AdminMenu {
                         System.out.println(e);
                     }
                     break;
-                case 7:
+                case 6:
                     System.out.println("ok bye");
                     d = 0;
                     break;

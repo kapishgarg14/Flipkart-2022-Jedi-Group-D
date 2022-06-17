@@ -127,7 +127,7 @@ public class StudentDaoImplementation implements StudentDaoInterface {
     @Override
     public String getfeeStatus(String studentId) throws SQLException {
         Connection conn = DBUtils.getConnection();
-        String sql = "SELECT paymentId FROM bookkeeper where studentId='" + studentId + "'";
+        String sql = "SELECT paymentId FROM feePaymentRecord where studentId='" + studentId + "'";
         PreparedStatement statement = conn.prepareStatement(sql);
         ResultSet rs = statement.executeQuery();
         while (rs.next()) {
@@ -157,7 +157,7 @@ public class StudentDaoImplementation implements StudentDaoInterface {
         try {
             for (Integer course : courses) {
 
-                PreparedStatement preparedStatement1 = connection.prepareStatement("select courseId from professorreg where courseId = '" + course + "'");
+                PreparedStatement preparedStatement1 = connection.prepareStatement("select courseId from profRegCourses where courseId = '" + course + "'");
                 ResultSet flag = preparedStatement1.executeQuery();
                 if (flag.next() == false) {
                     System.out.println(course);

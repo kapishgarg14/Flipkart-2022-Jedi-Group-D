@@ -24,7 +24,7 @@ public class PaymentDaoImplementation implements PaymentDaoInterface {
 
     @Override
     public void insertIntoBookkeeper(String paymentId, String studentId, int semester) throws SQLException {
-        String sql = "INSERT INTO `bookkeeper`\n" +
+        String sql = "INSERT INTO `feePaymentRecord`\n" +
                 "(`paymentId`,\n" +
                 "`StudentID`,\n" +
                 "`semester`)\n" +

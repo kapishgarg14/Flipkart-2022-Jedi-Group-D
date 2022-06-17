@@ -14,7 +14,7 @@ public class NotificationDaoImplementation implements NotificationDaoInterface {
      * adds an entry to notification table of the dbms
      */
     public void insertNotification(String userID, NotificationType notificationType) throws SQLException {
-        String sql = "insert into notification (userID, message) values ('?', '?');";
+        String sql = "insert into notification (userID, message) values (?, ?);";
         Connection conn = DBUtils.getConnection();
         PreparedStatement statement = conn.prepareStatement(sql);
         statement.setString(1, userID);
@@ -37,7 +37,7 @@ public class NotificationDaoImplementation implements NotificationDaoInterface {
      */
     @Override
     public void getAllNotifications(String userID) throws SQLException {
-        String sql = "select * from notifcation where userID = '?';";
+        String sql = "select * from notification where userID = ?;";
         Connection conn = DBUtils.getConnection();
         PreparedStatement statement = conn.prepareStatement(sql);
         statement.setString(1, userID);

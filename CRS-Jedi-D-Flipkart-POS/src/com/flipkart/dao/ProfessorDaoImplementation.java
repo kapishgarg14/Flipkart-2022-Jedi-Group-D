@@ -16,8 +16,8 @@ public class ProfessorDaoImplementation implements ProfessorDaoInterface {
 //        
         Connection conn = DBUtils.getConnection();
         String sql = "select registrar.userId,user.userName,course.courseId,course.courseName " +
-                "from registrar,user,course where registrar.courseId in(select courseId from professorreg " +
-                "where professorreg.userId='" + professor.getProfessorId() + "' ) and registrar.userId=user.userId and " +
+                "from registrar,user,course where registrar.courseId in(select courseId from profRegCourses " +
+                "where profRegCourses.userId='" + professor.getProfessorId() + "' ) and registrar.userId=user.userId and " +
                 "registrar.courseId=course.courseId ";
 
         PreparedStatement statement = conn.prepareStatement(sql);
@@ -68,7 +68,7 @@ public class ProfessorDaoImplementation implements ProfessorDaoInterface {
         ArrayList<Course> courses = new ArrayList<Course>();
 //        
         Connection con = DBUtils.getConnection();
-        String SQL = "INSERT INTO professorreg(userId,courseId)"
+        String SQL = "INSERT INTO profRegCourses(userId,courseId)"
                 + "VALUES(?,?)";
 
         long id = 0;
@@ -104,7 +104,7 @@ public class ProfessorDaoImplementation implements ProfessorDaoInterface {
         ArrayList<Course> courses = new ArrayList<Course>();
 //        
         Connection con = DBUtils.getConnection();
-        String sql = "select courseId,courseName from course where courseId not in (select courseId from professorReg)";
+        String sql = "select courseId,courseName from course where courseId not in (select courseId from profRegCourses)";
         PreparedStatement statement = con.prepareStatement(sql);
         ResultSet rs = statement.executeQuery();
         while (rs.next()) {

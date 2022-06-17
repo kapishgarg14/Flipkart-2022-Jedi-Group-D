@@ -21,7 +21,7 @@ public class DBUtils {
 //            String username = properties.getProperty("root");
 //            String password = properties.getProperty("Blue_175972");
 //            Class.forName(driver);
-            return DriverManager.getConnection("jdbc:mysql://localhost:3306/crs", "root", "Blue_175972");
+            return DriverManager.getConnection("jdbc:mysql://localhost:3306/crs", "root", "sql1234");
 //            connection = DriverManager.getConnection(url, username, password);
         } catch (IOException e) {
             e.printStackTrace();

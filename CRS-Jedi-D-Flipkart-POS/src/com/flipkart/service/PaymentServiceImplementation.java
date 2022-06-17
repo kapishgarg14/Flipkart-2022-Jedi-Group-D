@@ -57,6 +57,9 @@ public class PaymentServiceImplementation implements PaymentServiceInterface {
             System.out.println("Enter Pin");
             upi = s.next();
             pdi.insertIntoBookkeeper(paymentId, student.getUserId(), student.getSemester());
+
+            NotificationDaoImplementation notificationDaoImplementation = new NotificationDaoImplementation();
+            notificationDaoImplementation.insertNotification(student.getUserId(), NotificationType.PAYMENT);
         } else if (pType == 2) {
             String paymentId = this.getRandomString();
             pdi.insertIntoPayment(paymentId, PaymentConstants.CARD_PAYMENT_STRING);
@@ -67,6 +70,7 @@ public class PaymentServiceImplementation implements PaymentServiceInterface {
             System.out.println("Enter Pin");
             upi = s.next();
             pdi.insertIntoBookkeeper(paymentId, student.getUserId(), student.getSemester());
+
             NotificationDaoImplementation notificationDaoImplementation = new NotificationDaoImplementation();
             notificationDaoImplementation.insertNotification(student.getUserId(), NotificationType.PAYMENT);
         } else {

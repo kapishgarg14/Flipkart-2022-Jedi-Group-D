@@ -62,9 +62,9 @@ public class StudentOperations implements StudentInterface {
 
         Connection connection = DBUtils.getConnection();
 
-        String sql = "select course.courseId,course.courseName, professorreg.userId"
-                + "    		from professorreg, course"
-                + "    		where course.courseId = professorreg.courseId"
+        String sql = "select course.courseId,course.courseName, profRegCourses.userId"
+                + "    		from profRegCourses, course"
+                + "    		where course.courseId = profRegCourses.courseId"
                 + "            and course.courseId not in (select courseId from registrar where userId = ?);";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, studentID);
